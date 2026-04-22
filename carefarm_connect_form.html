@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareFarm Connect — แบบฟอร์มสมัครเข้าร่วมโครงการ</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0a4a2e;
+    --green-mid: #1a7a4a;
+    --green-bright: #2db56e;
+    --green-light: #d4f0e2;
+    --green-pale: #f0faf5;
+    --cream: #faf8f3;
+    --warm-gray: #f2efe8;
+    --text-dark: #1a1a18;
+    --text-mid: #4a5548;
+    --text-light: #8a9a88;
+    --border: #d8e8d4;
+    --white: #ffffff;
+    --accent: #e8a23a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* Hero Header */
+  .hero {
+    background: var(--green-deep);
+    padding: 3rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(45,181,110,0.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(45,181,110,0.08);
+  }
+  .hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(45,181,110,0.2);
+    color: var(--green-bright);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(45,181,110,0.3);
+  }
+  .hero h1 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 span { color: var(--green-bright); }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+  .hero-dots {
+    display: flex;
+    gap: 20px;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-dot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+  }
+  .hero-dot-icon {
+    width: 28px; height: 28px;
+    background: rgba(45,181,110,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* Wave divider */
+  .wave {
+    background: var(--green-deep);
+    line-height: 0;
+  }
+  .wave svg { display: block; }
+
+  /* Main form container */
+  .form-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* Progress indicator */
+  .progress-bar {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .progress-step {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-light);
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    line-height: 1.4;
+    cursor: default;
+  }
+  .progress-step:last-child { border-right: none; }
+  .progress-step .step-num {
+    display: block;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--warm-gray);
+    color: var(--text-light);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0 auto 4px;
+  }
+
+  /* Section card */
+  .section-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    overflow: visible;
+  }
+  .section-header {
+    background: var(--green-pale);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--green-mid);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+  .section-header p {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 1px;
+  }
+  .section-body { padding: 1.5rem; }
+
+  /* Form fields */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .field-row.single { grid-template-columns: 1fr; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .field label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+  }
+  .field label .req {
+    color: #d44;
+    margin-left: 2px;
+  }
+  .field .hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: -2px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--green-bright);
+    box-shadow: 0 0 0 3px rgba(45,181,110,0.12);
+    background: var(--white);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a9a88' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+    cursor: pointer;
+  }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+  /* Checkbox tags */
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .tag-group input[type="checkbox"] { display: none; }
+  .tag-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-mid);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .tag-group input[type="checkbox"]:checked + label {
+    background: var(--green-light);
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+    font-weight: 500;
+  }
+  .tag-group label:hover {
+    border-color: var(--green-bright);
+    background: var(--green-pale);
+  }
+
+  /* Radio tags */
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .radio-group input[type="radio"] { display: none; }
+  .radio-group label {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-mid);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-group input[type="radio"]:checked + label {
+    background: var(--green-light);
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+    font-weight: 500;
+  }
+  .radio-group label:hover {
+    border-color: var(--green-bright);
+    background: var(--green-pale);
+  }
+
+  /* Fieldset label (for tag groups) */
+  .field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .field-label .req { color: #d44; margin-left: 2px; }
+
+  .field-group { margin-bottom: 1rem; }
+
+  /* Area unit row */
+  .unit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: end;
+  }
+  .unit-row .unit-label {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 3px;
+    display: block;
+  }
+
+  /* Map link field */
+  .map-field {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .map-field input { flex: 1; }
+  .map-btn {
+    padding: 10px 14px;
+    background: var(--green-pale);
+    border: 1px solid var(--green-bright);
+    border-radius: 9px;
+    color: var(--green-deep);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Sarabun', sans-serif;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .map-btn:hover { background: var(--green-light); }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.25rem 0;
+  }
+
+  /* Consent box */
+  .consent-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .consent-box input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 2px;
+    accent-color: var(--green-mid);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .consent-box p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .consent-box strong { color: var(--green-deep); }
+
+  /* Submit button */
+  .submit-wrap { text-align: center; }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 48px;
+    background: var(--green-mid);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(26,122,74,0.3);
+  }
+  .submit-btn:hover {
+    background: var(--green-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(26,122,74,0.4);
+  }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn svg { width: 18px; height: 18px; }
+  .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .spinner {
+    display: inline-block;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .toast {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--green-deep);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 200;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.warn { background: #b45309; }
+  .toast.error { background: #991b1b; }
+  .toast.info { background: var(--green-mid); }
+
+  .submit-note {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  /* Footer */
+  .form-footer {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .form-footer .logo {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+  .form-footer .logo span { color: var(--green-bright); }
+  .form-footer p {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  /* Success overlay */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,74,46,0.94);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    padding: 2rem;
+  }
+  .success-overlay.show { display: flex; }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--green-bright);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+  }
+  .success-overlay h2 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.6rem;
+    color: var(--white);
+  }
+  .success-overlay p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    max-width: 380px;
+    line-height: 1.7;
+  }
+  .success-divider {
+    width: 260px;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin: 4px 0;
+  }
+  .success-pdf-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+  .success-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+  }
+  .btn-success-pdf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 13px 24px;
+    background: var(--white);
+    color: var(--green-deep);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  }
+  .btn-success-pdf:hover { background: var(--green-pale); transform: translateY(-1px); }
+  .btn-success-close {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    text-decoration: underline;
+    padding: 4px;
+  }
+  .btn-success-close:hover { color: rgba(255,255,255,0.85); }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.7rem; }
+    .field-row { grid-template-columns: 1fr; }
+    .field-row.triple { grid-template-columns: 1fr; }
+    .unit-row { grid-template-columns: 1fr; }
+    .section-body { padding: 1rem; }
+    .progress-step { font-size: 10px; padding: 10px 4px; }
+  }
+
+  /* Photo Upload Banner */
+  .photo-banner {
+    background: linear-gradient(135deg, #f0faf5 0%, #e8f5ef 100%);
+    border: 1.5px dashed #2db56e;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .photo-banner-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; min-width: 0; }
+  .photo-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+  .photo-title { font-size: 15px; font-weight: 600; color: var(--green-deep); margin-bottom: 4px; }
+  .photo-sub { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 8px; }
+  .photo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .photo-tag { font-size: 11px; background: rgba(45,181,110,0.12); color: #0a4a2e; border-radius: 20px; padding: 3px 10px; border: 1px solid rgba(45,181,110,0.25); }
+  .photo-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 11px 22px;
+    background: var(--green-mid);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'Sarabun', sans-serif;
+  }
+  .photo-btn:hover { background: var(--green-deep); transform: translateY(-1px); }
+  .photo-note { font-size: 12px; color: var(--text-light); margin-top: 6px; }
+
+
+  /* ─── PDF / Print styles ─────────────────────────── */
+  @media print {
+    body { background: #fff !important; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .progress-bar, .photo-banner, .consent-box,
+    .submit-wrap, .form-footer, .toast,
+    .success-overlay, #pdfBtn { display: none !important; }
+    .form-wrap { padding: 0 !important; max-width: 100% !important; }
+    .section-card { break-inside: avoid; border: 1px solid #ccc !important; margin-bottom: 10px !important; }
+    .pdf-sections { display: block !important; }
+    .pdf-sig-section { break-inside: avoid; }
+    .tag-group label, .radio-group label {
+      border: 1px solid #aaa !important;
+      background: #fff !important;
+      padding: 3px 8px !important;
+      font-size: 11px !important;
+    }
+    .tag-group input[type="checkbox"]:checked + label,
+    .radio-group input[type="radio"]:checked + label {
+      background: #d4f0e2 !important;
+      border-color: #1a7a4a !important;
+      font-weight: 600 !important;
+    }
+    .hero { padding: 10px 16px 14px !important; }
+    .hero h1 { font-size: 18px !important; }
+    .hero p { font-size: 11px !important; }
+    .hero-badge { font-size: 9px !important; }
+    .hero-dots { display: none !important; }
+    input[type="text"], input[type="tel"], input[type="number"], select, textarea {
+      border: none !important; border-bottom: 1px solid #aaa !important;
+      background: transparent !important; padding: 2px 4px !important;
+      font-size: 12px !important; box-shadow: none !important;
+    }
+    .section-body { padding: 8px 12px !important; }
+    .pdf-print-date { display: block !important; }
+  }
+  .pdf-sections { display: none; }
+  .pdf-print-date { display: none; }
+
+  /* PDF button */
+  #pdfBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: var(--white);
+    color: var(--green-deep);
+    border: 2px solid var(--green-mid);
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 12px;
+  }
+  #pdfBtn:hover { background: var(--green-pale); }
+
+  /* Section 6 & 7 (ข้อตกลง + ลายเซ็น) added to HTML form */
+  .pdf-agree-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 13.5px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .pdf-agree-box ol { padding-left: 1.2rem; }
+  .pdf-pdpa-box {
+    background: #fff8e8;
+    border: 1px solid #e8c97a;
+    border-radius: 10px;
+    padding: 0.9rem 1.25rem;
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+  /* PDPA interactive checkbox */
+  .pdpa-check-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 12px;
+  }
+  .pdpa-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    transition: all 0.2s;
+    user-select: none;
+    flex: 1;
+    min-width: 200px;
+  }
+  .pdpa-label input[type="radio"] { display: none; }
+  .pdpa-box {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .check-icon {
+    width: 12px; height: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .pdpa-label.agree-label:hover { border-color: var(--green-bright); background: var(--green-pale); }
+  .pdpa-label.disagree-label:hover { border-color: #c0392b; background: #fff5f5; }
+  .pdpa-label.agree-selected {
+    border-color: var(--green-mid);
+    background: var(--green-pale);
+    color: var(--green-deep);
+  }
+  .pdpa-label.agree-selected .pdpa-box {
+    background: var(--green-mid);
+    border-color: var(--green-mid);
+    color: white;
+  }
+  .pdpa-label.agree-selected .check-icon { opacity: 1; color: white; }
+  .pdpa-label.disagree-selected {
+    border-color: #c0392b;
+    background: #fff5f5;
+    color: #9b2335;
+  }
+  .pdpa-label.disagree-selected .pdpa-box {
+    background: #c0392b;
+    border-color: #c0392b;
+    color: white;
+  }
+  .pdpa-label.disagree-selected .check-icon { opacity: 1; color: white; }
+
+  .pdf-check-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .pdf-check-row .agree { color: var(--green-deep); }
+  .pdf-check-row .disagree { color: #9b2335; }
+  /* ── Signature canvas styles ── */
+  .sig-canvas-wrap {
+    position: relative;
+    margin: 8px 0 4px;
+    border-radius: 10px;
+    overflow: visible;
+    background: #fafffe;
+    border: 1.5px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .sig-canvas-wrap:hover { border-color: var(--green-bright); }
+  .sig-canvas {
+    display: block;
+    width: 100%;
+    height: 110px;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .sig-hint {
+    position: absolute;
+    bottom: 6px; left: 0; right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-light);
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .sig-canvas.has-sig + .sig-hint { opacity: 0; }
+  .sig-clear-btn {
+    font-size: 11px;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 0;
+    font-family: 'Sarabun', sans-serif;
+    transition: color 0.2s;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .sig-clear-btn:hover { color: #c0392b; }
+  .sig-date-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+  .sig-date-field {
+    border: none;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px;
+    color: var(--text-dark);
+    outline: none;
+    padding: 2px 4px;
+    flex: 1;
+  }
+  .sig-box-hr { background: var(--warm-gray); }
+  .sig-box-hr .sig-canvas-wrap { border-color: var(--text-light); border-style: dashed; }
+
+  @media print {
+    .sig-clear-btn { display: none !important; }
+    .sig-hint { display: none !important; }
+    .sig-canvas-wrap { border: 1px solid #ccc !important; }
+  }
+
+  .sig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .sig-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 10px;
+    padding: 10px 12px 14px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .sig-box .sig-title { font-weight: 600; color: var(--green-deep); margin-bottom: 28px; }
+  .sig-box .sig-line { border-top: 1px solid var(--color-border-tertiary); padding-top: 4px; font-size: 12px; color: var(--text-light); }
+  .sig-box .sig-name { border-top: 1px solid var(--color-border-tertiary); margin: 4px 0; font-size: 12px; color: var(--text-light); }
+  .sig-box .sig-date { font-size: 12px; color: var(--text-light); }
+  .doc-ctrl {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 1.5rem;
+  }
+  .doc-ctrl span:last-child { text-align: right; }
+
+
+  /* Wizard step navigation */
+  .wizard-wrap { position: relative; }
+  .wizard-step { display: none; }
+  .wizard-step.active { display: block; }
+  .wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    gap: 10px;
+  }
+  .btn-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-prev {
+    background: var(--white);
+    color: var(--green-mid);
+    border: 2px solid var(--green-mid);
+  }
+  .btn-prev:hover { background: var(--green-pale); }
+  .btn-next {
+    background: var(--green-mid);
+    color: var(--white);
+    box-shadow: 0 3px 12px rgba(26,122,74,0.25);
+  }
+  .btn-next:hover { background: var(--green-deep); }
+  .step-counter {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+  /* Progress bar active state */
+  .progress-step.done .step-num { background: var(--green-mid); color: #fff; }
+  .progress-step.current .step-num { background: var(--green-deep); color: #fff; outline: 3px solid var(--green-light); }
+  /* Autosave badge */
+  .autosave-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--green-mid);
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .autosave-badge.show { opacity: 1; }
+  /* Variety suggest dropdown */
+  .variety-wrap { position: relative; }
+  .variety-suggest {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--white);
+    border: 1px solid var(--green-bright);
+    border-radius: 10px;
+    z-index: 50;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display: none;
+  }
+  .variety-suggest.open { display: block; }
+  .variety-suggest div {
+    padding: 9px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-dark);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .variety-suggest div:last-child { border-bottom: none; }
+  .variety-suggest div:hover { background: var(--green-pale); color: var(--green-deep); }
+  /* Cost range radio pills */
+  .cost-range-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .cost-range-group input[type="radio"] { display: none; }
+  .cost-range-group label {
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-mid);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cost-range-group input[type="radio"]:checked + label {
+    background: var(--green-light);
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+    font-weight: 500;
+  }
+  /* Season checkboxes */
+  .season-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  /* Risk tag */
+  .risk-tag-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  /* Flood/drought history */
+  .info-hint {
+    font-size: 12px;
+    color: var(--text-light);
+    background: var(--warm-gray);
+    border-radius: 8px;
+    padding: 7px 12px;
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+
+  .clear-draft-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-light);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+    float: right;
+  }
+  .clear-draft-btn:hover {
+    color: #c0392b;
+    border-color: #c0392b;
+    background: #fff5f5;
+  }
+
+
+  /* ── Force pointer events on sec 6/7 ── */
+  #pdpa-agree-label, #pdpa-disagree-label {
+    position: relative !important;
+    z-index: 20 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+  #sigCanvas_emp, #sigCanvas_farm, #sigCanvas_hr {
+    position: relative !important;
+    z-index: 20 !important;
+    pointer-events: auto !important;
+    cursor: crosshair !important;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">RBS · สวัสดิการพนักงาน</div>
+    <h1>Care<span>Farm</span> Connect</h1>
+    <p>แบบฟอร์มสมัครเข้าร่วมโครงการเกษตรอินทรีย์ต้นแบบ (รุ่นที่ 1)</p>
+    <div class="hero-dots">
+      <div class="hero-dot"><div class="hero-dot-icon">🌱</div> เกษตรอินทรีย์</div>
+    </div>
+  </div>
+</div>
+<div class="wave">
+  <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,0 1080,60 1440,20 L1440,40 L0,40 Z" fill="#faf8f3"/>
+  </svg>
+</div>
+
+<!-- Form -->
+<div class="form-wrap">
+
+  <!-- Progress -->
+  <div class="progress-bar">
+    <div class="progress-step"><span class="step-num">1</span>ข้อมูลพนักงาน</div>
+    <div class="progress-step"><span class="step-num">2</span>พื้นที่เกษตร</div>
+    <div class="progress-step"><span class="step-num">3</span>พืชที่ปลูก</div>
+    <div class="progress-step"><span class="step-num">4</span>ประวัติปุ๋ย</div>
+    <div class="progress-step"><span class="step-num">5</span>ความพร้อม</div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+    <div id="autosaveBadge" class="autosave-badge">✓ บันทึก draft อัตโนมัติแล้ว</div>
+    <button type="button" class="clear-draft-btn" onclick="clearDraft()">
+      🗑 ล้างข้อมูลที่กรอกไว้ทั้งหมด
+    </button>
+  </div>
+  <form id="mainForm" onsubmit="handleSubmit(event)" novalidate>
+
+    <!-- Section 1 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div>
+          <h2>ข้อมูลพนักงาน</h2>
+          <p>ข้อมูลพื้นฐานผู้สมัครและผู้ดูแลแปลง</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>ชื่อ-นามสกุลพนักงาน<span class="req">*</span></label>
+            <input type="text" name="emp_name" placeholder="เช่น นายสมชาย ใจดี" required>
+          </div>
+          <div class="field">
+            <label>รหัสพนักงาน<span class="req">*</span></label>
+            <input type="text" name="emp_id" placeholder="เช่น RBS-00123" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>แผนก / ฝ่าย<span class="req">*</span></label>
+            <select name="department" required>
+              <option value="">— เลือกแผนก —</option>
+              <option>ฝ่ายขาย</option>
+              <option>ฝ่ายปฏิบัติการ</option>
+              <option>ฝ่ายการเงิน</option>
+              <option>ฝ่ายบุคคล (HR)</option>
+              <option>ฝ่าย IT</option>
+              <option>ฝ่ายการตลาด</option>
+              <option>อื่นๆ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>เบอร์โทรพนักงาน<span class="req">*</span></label>
+            <input type="tel" name="emp_phone" placeholder="08X-XXX-XXXX" required>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="field-row">
+          <div class="field">
+            <label>ชื่อผู้ดูแลแปลงหลัก<span class="req">*</span></label>
+            <input type="text" name="farm_contact" placeholder="เช่น นางสมหญิง ใจดี" required>
+          </div>
+          <div class="field">
+            <label>ความสัมพันธ์กับพนักงาน<span class="req">*</span></label>
+            <select name="relationship" required>
+              <option value="">— เลือก —</option>
+              <option>พ่อ / แม่</option>
+              <option>ปู่ / ย่า / ตา / ยาย</option>
+              <option>พี่ / น้อง</option>
+              <option>คู่สมรส</option>
+              <option>ญาติ (อื่นๆ)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>เบอร์โทรผู้ดูแลแปลง (สำหรับประสานงานลงพื้นที่)<span class="req">*</span></label>
+            <input type="tel" name="farm_phone" placeholder="08X-XXX-XXXX" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div>
+          <h2>ข้อมูลพื้นที่เกษตร</h2>
+          <p>ตำแหน่ง ขนาด และลักษณะดินของแปลง</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="field-row triple">
+          <div class="field">
+            <label>จังหวัด<span class="req">*</span></label>
+            <input type="text" name="province" placeholder="เช่น สุราษฎร์ธานี" required>
+          </div>
+          <div class="field">
+            <label>อำเภอ<span class="req">*</span></label>
+            <input type="text" name="district" placeholder="เช่น เมือง" required>
+          </div>
+          <div class="field">
+            <label>ตำบล</label>
+            <input type="text" name="subdistrict" placeholder="เช่น ท่าข้าม">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ลิงก์ Google Maps (พิกัดแปลง)<span class="req">*</span></label>
+          <div class="map-field">
+            <input type="text" name="map_link" placeholder="วางลิงก์ Google Maps หรือ Plus Code ที่นี่" required>
+            <button type="button" class="map-btn" onclick="window.open('https://maps.google.com','_blank')">📍 เปิด Maps</button>
+          </div>
+          <p style="font-size:11px;color:var(--text-light);margin-top:4px;">วิธีก๊อปลิงก์: เปิด Google Maps → กด Share → Copy link</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="field-group">
+          <label class="field-label">ขนาดพื้นที่ทั้งหมด<span class="req">*</span></label>
+          <div class="unit-row">
+            <div>
+              <span class="unit-label">ไร่</span>
+              <input type="number" name="area_rai" placeholder="0" min="0">
+            </div>
+            <div>
+              <span class="unit-label">งาน</span>
+              <input type="number" name="area_ngan" placeholder="0" min="0" max="3">
+            </div>
+            <div>
+              <span class="unit-label">ตารางวา</span>
+              <input type="number" name="area_wa" placeholder="0" min="0" max="99">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ขนาดแปลงสาธิตที่ขอเข้าร่วม</label>
+          <div class="unit-row">
+            <div>
+              <span class="unit-label">ไร่</span>
+              <input type="number" name="demo_rai" placeholder="0" min="0">
+            </div>
+            <div>
+              <span class="unit-label">งาน</span>
+              <input type="number" name="demo_ngan" placeholder="0" min="0" max="3">
+            </div>
+            <div>
+              <span class="unit-label">ตารางวา</span>
+              <input type="number" name="demo_wa" placeholder="0" min="0" max="99">
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="field-row">
+          <div class="field">
+            <label>แหล่งน้ำที่ใช้<span class="req">*</span></label>
+            <select name="water_source" required>
+              <option value="">— เลือก —</option>
+              <option>น้ำบาดาล</option>
+              <option>น้ำชลประทาน</option>
+              <option>น้ำฝน (ไม่มีระบบ)</option>
+              <option>บ่อพักน้ำ</option>
+              <option>แหล่งน้ำธรรมชาติ</option>
+              <option>หลายแหล่ง (ระบุด้านล่าง)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>วิธีการให้น้ำ<span class="req">*</span></label>
+            <select name="watering_method" required>
+              <option value="">— เลือก —</option>
+              <option>สปริงเกลอร์</option>
+              <option>ระบบหยด (Drip)</option>
+              <option>น้ำท่วมแปลง / ไขน้ำเข้า</option>
+              <option>รดด้วยมือ / สายยาง</option>
+              <option>อาศัยน้ำฝนอย่างเดียว</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ลักษณะดินโดยรวม (เลือกได้มากกว่า 1)</label>
+          <div class="tag-group">
+            <input type="checkbox" id="soil1" name="soil_type" value="ดินร่วน"><label for="soil1">ดินร่วน</label>
+            <input type="checkbox" id="soil2" name="soil_type" value="ดินเหนียว"><label for="soil2">ดินเหนียว</label>
+            <input type="checkbox" id="soil3" name="soil_type" value="ดินทราย"><label for="soil3">ดินทราย</label>
+            <input type="checkbox" id="soil4" name="soil_type" value="ดินแข็ง/ดินดาน"><label for="soil4">ดินแข็ง / ดินดาน</label>
+            <input type="checkbox" id="soil5" name="soil_type" value="ดินเปรี้ยว"><label for="soil5">ดินเปรี้ยว (pH ต่ำ)</label>
+            <input type="checkbox" id="soil6" name="soil_type" value="ดินเค็ม"><label for="soil6">ดินเค็ม</label>
+            <input type="checkbox" id="soil7" name="soil_type" value="ไม่แน่ใจ"><label for="soil7">ไม่แน่ใจ</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div>
+          <h2>ข้อมูลพืชที่ปลูก</h2>
+          <p>ชนิดพืช สายพันธุ์ และผลผลิต</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="field-group">
+          <label class="field-label">ประเภทพืชหลักในแปลงสาธิต<span class="req">*</span> (เลือกได้มากกว่า 1)</label>
+          <div class="tag-group">
+            <input type="checkbox" id="crop1" name="crop_type" value="ข้าว"><label for="crop1">🌾 ข้าว</label>
+            <input type="checkbox" id="crop2" name="crop_type" value="สับปะรด"><label for="crop2">🍍 สับปะรด</label>
+            <input type="checkbox" id="crop3" name="crop_type" value="มังคุด"><label for="crop3">🟣 มังคุด</label>
+            <input type="checkbox" id="crop4" name="crop_type" value="ลองกอง"><label for="crop4">🟡 ลองกอง</label>
+            <input type="checkbox" id="crop5" name="crop_type" value="ทุเรียน"><label for="crop5">🌵 ทุเรียน</label>
+            <input type="checkbox" id="crop6" name="crop_type" value="ยางพารา"><label for="crop6">🌿 ยางพารา</label>
+            <input type="checkbox" id="crop7" name="crop_type" value="ปาล์มน้ำมัน"><label for="crop7">🌴 ปาล์มน้ำมัน</label>
+            <input type="checkbox" id="crop8" name="crop_type" value="ผลไม้อื่นๆ"><label for="crop8">🍊 ผลไม้ (อื่นๆ)</label>
+            <input type="checkbox" id="crop9" name="crop_type" value="ผัก"><label for="crop9">🥬 ผัก</label>
+            <input type="checkbox" id="crop10" name="crop_type" value="พืชไร่"><label for="crop10">🌽 พืชไร่</label>
+            <input type="checkbox" id="crop11" name="crop_type" value="อื่นๆ"><label for="crop11">+ อื่นๆ</label>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>สายพันธุ์ที่ปลูก<span class="req">*</span></label>
+            <div class="variety-wrap">
+              <input type="text" name="variety" id="varietyInput"
+                placeholder="พิมพ์เพื่อค้นหา เช่น หอมมะลิ, หมอนทอง, ระยอง..."
+                autocomplete="off" required oninput="filterVariety(this.value)" onblur="setTimeout(()=>closeVariety(),200)">
+              <div class="variety-suggest" id="varietySuggest"></div>
+            </div>
+            <span class="hint">เลือกจากรายการ หรือพิมพ์ชื่อเองได้ · หากปลูกหลายชนิด คั่นด้วยจุลภาค</span>
+          </div>
+        </div>
+
+        <div class="field-row triple">
+          <div class="field">
+            <label>อายุต้น / ปีที่ทำเกษตรในพื้นที่ (ปี)<span class="req">*</span></label>
+            <input type="number" name="plant_age" placeholder="เช่น 5" min="0" required>
+          </div>
+          <div class="field">
+            <label>จำนวนต้น (สำหรับไม้ผล)</label>
+            <input type="number" name="tree_count" placeholder="เช่น 50 ต้น" min="0">
+          </div>
+          <div class="field">
+            <label>รอบการผลิตต่อปี (รอบ)</label>
+            <input type="number" name="cycles_per_year" placeholder="เช่น 2" min="1">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>ผลผลิตเฉลี่ยต่อรอบที่ผ่านมา</label>
+            <input type="text" name="yield_avg" placeholder="เช่น 500 กก./ไร่ หรือ 80 กก./ต้น">
+          </div>
+          <div class="field">
+            <label>แหล่งจำหน่ายผลผลิต</label>
+            <select name="market_channel">
+              <option value="">— เลือก —</option>
+              <option>ขายให้พ่อค้าคนกลาง</option>
+              <option>ขายตลาดท้องถิ่น</option>
+              <option>ส่งโรงงาน / สหกรณ์</option>
+              <option>ขายออนไลน์</option>
+              <option>บริโภคในครัวเรือน</option>
+              <option>หลายช่องทาง</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ช่วงเวลาเพาะปลูก / เก็บเกี่ยวหลัก (เลือกได้มากกว่า 1)</label>
+          <div class="season-row tag-group">
+            <input type="checkbox" id="mon1" name="harvest_month" value="ม.ค."><label for="mon1">ม.ค.</label>
+            <input type="checkbox" id="mon2" name="harvest_month" value="ก.พ."><label for="mon2">ก.พ.</label>
+            <input type="checkbox" id="mon3" name="harvest_month" value="มี.ค."><label for="mon3">มี.ค.</label>
+            <input type="checkbox" id="mon4" name="harvest_month" value="เม.ย."><label for="mon4">เม.ย.</label>
+            <input type="checkbox" id="mon5" name="harvest_month" value="พ.ค."><label for="mon5">พ.ค.</label>
+            <input type="checkbox" id="mon6" name="harvest_month" value="มิ.ย."><label for="mon6">มิ.ย.</label>
+            <input type="checkbox" id="mon7" name="harvest_month" value="ก.ค."><label for="mon7">ก.ค.</label>
+            <input type="checkbox" id="mon8" name="harvest_month" value="ส.ค."><label for="mon8">ส.ค.</label>
+            <input type="checkbox" id="mon9" name="harvest_month" value="ก.ย."><label for="mon9">ก.ย.</label>
+            <input type="checkbox" id="mon10" name="harvest_month" value="ต.ค."><label for="mon10">ต.ค.</label>
+            <input type="checkbox" id="mon11" name="harvest_month" value="พ.ย."><label for="mon11">พ.ย.</label>
+            <input type="checkbox" id="mon12" name="harvest_month" value="ธ.ค."><label for="mon12">ธ.ค.</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div>
+          <h2>ประวัติการใช้ปุ๋ยและสารเคมี</h2>
+          <p>ข้อมูลนี้ช่วยให้เราจัดสรรปุ๋ยได้ตรงกับความต้องการของดินและพืช</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>ปุ๋ยที่ใช้ในปัจจุบัน (สูตร / ยี่ห้อ)<span class="req">*</span></label>
+            <input type="text" name="fertilizer_type" placeholder="เช่น 46-0-0, 16-20-0, ยูเรีย" required>
+          </div>
+          <div class="field">
+            <label>ปริมาณปุ๋ยต่อรอบการผลิต</label>
+            <input type="text" name="fertilizer_amount" placeholder="เช่น 50 กก./ไร่ หรือ 5 ถุง">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ค่าใช้จ่ายปุ๋ย + สารเคมีโดยประมาณต่อรอบ</label>
+          <div class="cost-range-group">
+            <input type="radio" id="cost1" name="fertilizer_cost" value="น้อยกว่า 2,000 บาท"><label for="cost1">น้อยกว่า 2,000 บาท</label>
+            <input type="radio" id="cost2" name="fertilizer_cost" value="2,000–5,000 บาท"><label for="cost2">2,000–5,000 บาท</label>
+            <input type="radio" id="cost3" name="fertilizer_cost" value="5,001–10,000 บาท"><label for="cost3">5,001–10,000 บาท</label>
+            <input type="radio" id="cost4" name="fertilizer_cost" value="10,001–20,000 บาท"><label for="cost4">10,001–20,000 บาท</label>
+            <input type="radio" id="cost5" name="fertilizer_cost" value="มากกว่า 20,000 บาท"><label for="cost5">มากกว่า 20,000 บาท</label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>เคยใช้ปุ๋ยอินทรีย์บ้างหรือไม่?</label>
+            <select name="organic_exp">
+              <option value="">— เลือก —</option>
+              <option>ไม่เคยเลย</option>
+              <option>เคยใช้บ้างเล็กน้อย</option>
+              <option>ใช้ร่วมกับเคมีอยู่แล้ว</option>
+              <option>ใช้อินทรีย์เป็นหลักอยู่แล้ว</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>ราคาขายผลผลิตเฉลี่ย (บาท/กก. หรือ บาท/ผล)</label>
+            <input type="text" name="selling_price" placeholder="เช่น 8 บาท/กก. หรือ 150 บาท/ผล">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ปัญหาหลักที่พบในแปลงปัจจุบัน (เลือกได้มากกว่า 1)</label>
+          <div class="tag-group">
+            <input type="checkbox" id="prob1" name="problems" value="ผลผลิตน้อย"><label for="prob1">ผลผลิตน้อย / ตกต่ำ</label>
+            <input type="checkbox" id="prob2" name="problems" value="ดินแข็ง"><label for="prob2">ดินแข็ง ไม่ร่วนซุย</label>
+            <input type="checkbox" id="prob3" name="problems" value="ดินเปรี้ยว"><label for="prob3">ดินเปรี้ยว / pH ผิดปกติ</label>
+            <input type="checkbox" id="prob4" name="problems" value="ต้นทุนสูง"><label for="prob4">ต้นทุนปุ๋ยสูง</label>
+            <input type="checkbox" id="prob5" name="problems" value="โรคแมลง"><label for="prob5">โรคและแมลงรบกวนมาก</label>
+            <input type="checkbox" id="prob6" name="problems" value="คุณภาพผลผลิตต่ำ"><label for="prob6">ผลไม้ไม่ได้ขนาด / ไม่หวาน</label>
+            <input type="checkbox" id="prob7" name="problems" value="อื่นๆ"><label for="prob7">ปัญหาอื่นๆ</label>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>รายละเอียดปัญหาเพิ่มเติม</label>
+            <textarea name="problem_detail" placeholder="อธิบายปัญหาที่พบในแปลง เช่น ผลผลิตลดลงในช่วง 2 ปีที่ผ่านมา หรือดินเริ่มแน่น..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div>
+          <h2>ความพร้อมในการเข้าร่วม</h2>
+          <p>ประเมินความสะดวกในการดูแลแปลงและส่งรายงาน</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="field-group">
+          <label class="field-label">ผู้ดูแลแปลงมีเวลาดูแลแปลงสาธิตต่อเนื่องได้หรือไม่?<span class="req">*</span></label>
+          <div class="radio-group">
+            <input type="radio" id="avail1" name="availability" value="ดูแลได้ประจำ" required><label for="avail1">ดูแลได้ประจำ</label>
+            <input type="radio" id="avail2" name="availability" value="ดูแลได้บางช่วง"><label for="avail2">ดูแลได้บางช่วง</label>
+            <input type="radio" id="avail3" name="availability" value="ต้องการความช่วยเหลือ"><label for="avail3">ต้องการความช่วยเหลือเพิ่มเติม</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">สามารถถ่ายภาพรายงาน Before/After ส่งผ่าน Line/App ได้หรือไม่?<span class="req">*</span></label>
+          <div class="radio-group">
+            <input type="radio" id="photo1" name="photo_report" value="ทำได้สะดวก" required><label for="photo1">ทำได้สะดวก</label>
+            <input type="radio" id="photo2" name="photo_report" value="ต้องการคำแนะนำก่อน"><label for="photo2">ต้องการคำแนะนำก่อน</label>
+            <input type="radio" id="photo3" name="photo_report" value="ต้องการให้ทีมช่วย"><label for="photo3">ต้องการให้ทีมช่วย</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ยินดีให้ทีม RBS ลงพื้นที่เยี่ยมชมและเก็บข้อมูลหรือไม่?<span class="req">*</span></label>
+          <div class="radio-group">
+            <input type="radio" id="visit1" name="site_visit" value="ยินดีมาก" required><label for="visit1">ยินดีมาก</label>
+            <input type="radio" id="visit2" name="site_visit" value="ยินดี (นัดล่วงหน้า)"><label for="visit2">ยินดี (นัดล่วงหน้าก่อน)</label>
+            <input type="radio" id="visit3" name="site_visit" value="ขอพิจารณาก่อน"><label for="visit3">ขอพิจารณาก่อน</label>
+          </div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field">
+            <label>ข้อมูลเพิ่มเติม / สิ่งที่ต้องการให้บริษัทช่วยเหลือ</label>
+            <textarea name="additional_info" placeholder="เช่น ต้องการคำแนะนำด้านการจัดการดิน หรืออยากให้มีการอบรมออนไลน์สำหรับผู้ดูแลแปลง..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Upload Banner -->
+    <div class="photo-banner">
+      <div class="photo-banner-left">
+        <div class="photo-icon">📷</div>
+        <div>
+          <div class="photo-title">แนบภาพถ่ายแปลงเกษตร (Before)</div>
+          <div class="photo-sub">ภาพก่อนเริ่มโครงการช่วยให้ทีมเห็นสภาพแปลงจริง และจัดสรรปุ๋ยได้ตรงจุดมากขึ้น — สามารถแนบภายหลังได้หากยังไม่มีในตอนนี้</div>
+          <div class="photo-tags">
+            <span class="photo-tag">🌱 ภาพดิน</span>
+            <span class="photo-tag">🌿 ภาพพืช</span>
+            <span class="photo-tag">📍 ภาพพื้นที่</span>
+            <span class="photo-tag">สูงสุด 5 ภาพ / 10MB ต่อภาพ</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a class="photo-btn" id="photoFormBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSd8SKimVppFHAkNFoDb3bL6eNu0yWCznI8ZVN-2pTtjM4qYcA/viewform" target="_blank" rel="noopener">
+          แนบภาพแปลง
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <span class="photo-note">เปิดในแท็บใหม่</span>
+      </div>
+    </div>
+
+    <!-- Consent -->
+    <div class="consent-box">
+      <input type="checkbox" id="consent" name="consent" required>
+      <p>
+        <strong>ข้าพเจ้ายืนยันว่าข้อมูลที่กรอกเป็นความจริง</strong> และยินยอมให้บริษัท RBS จัดเก็บและนำข้อมูลแปลงเกษตรของครอบครัวไปใช้เพื่อการวิจัยและพัฒนาโครงการเกษตรอินทรีย์ รวมถึงการสร้างฐานข้อมูล Big Data ของบริษัท โดยข้อมูลส่วนบุคคลจะได้รับการปกป้องตาม PDPA
+      </p>
+    </div>
+
+    <!-- Section 6: ข้อตกลง -->
+    <div class="section-card" style="position:relative;z-index:10;pointer-events:auto">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div><h2>ข้อตกลงการเข้าร่วมโครงการ</h2><p>อ่านและยืนยันข้อตกลงก่อนลงนาม</p></div>
+      </div>
+      <div class="section-body">
+        <div class="pdf-agree-box">
+          ข้าพเจ้าในฐานะพนักงานบริษัท RBS และ/หรือผู้แทนครอบครัว ขอยืนยันว่าข้อมูลที่ให้ไว้เป็นความจริงทุกประการ และยินยอมผูกพันตามข้อตกลงต่อไปนี้
+          <ol>
+            <li>ยินยอมให้บริษัท RBS จัดส่งปุ๋ยอินทรีย์และให้คำแนะนำด้านเกษตรแก่แปลงที่ระบุในแบบฟอร์ม</li>
+            <li>ผู้ดูแลแปลงจะดูแลแปลงสาธิตต่อเนื่องตลอดระยะเวลาโครงการตามที่กำหนด</li>
+            <li>ยินยอมให้ทีมงาน RBS ลงพื้นที่เยี่ยมชมและเก็บข้อมูลแปลงตามที่นัดหมายล่วงหน้า</li>
+            <li>จัดส่งรายงานภาพถ่ายความคืบหน้า (Before/After) ผ่าน Google Form ตามรอบที่กำหนด</li>
+            <li>ยินยอมให้ใช้ข้อมูลและภาพถ่ายแปลงเพื่อการวิจัยและเผยแพร่ภายในองค์กรบริษัท RBS</li>
+          </ol>
+        </div>
+        <div class="pdf-pdpa-box" style="margin-top:12px">
+          <strong style="color:var(--green-deep)">การยินยอมตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)</strong><br>
+          บริษัท RBS จะจัดเก็บและประมวลผลข้อมูลส่วนบุคคลของท่านเพื่อโครงการ CareFarm Connect เท่านั้น และจะไม่เปิดเผยต่อบุคคลภายนอก ท่านมีสิทธิ์เพิกถอนได้ตลอดเวลาโดยติดต่อฝ่าย HR โทร 02-553-0077 ต่อ 300
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+          <button type="button" id="pdpa-agree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:'Sarabun',sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('agree')">
+            <span id="pdpa-agree-circle" style="width:24px;height:24px;border-radius:50%;border:2px solid #d8e8d4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;background:#fff"></span>
+            <span style="font-size:14px;font-weight:500;color:#0a4a2e">✓ ยินยอม ให้บริษัทจัดเก็บและประมวลผลข้อมูลส่วนบุคคลตามวัตถุประสงค์ข้างต้น</span>
+            <input type="radio" name="pdpa_consent" id="pdpa_agree" value="ยินยอม" style="display:none">
+          </button>
+          <button type="button" id="pdpa-disagree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:'Sarabun',sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('disagree')">
+            <span id="pdpa-disagree-circle" style="width:24px;height:24px;border-radius:50%;border:2px solid #d8e8d4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;background:#fff"></span>
+            <span style="font-size:14px;font-weight:500;color:#9b2335">✗ ไม่ยินยอม (กรุณาติดต่อ HR ก่อนสมัคร)</span>
+            <input type="radio" name="pdpa_consent" id="pdpa_disagree" value="ไม่ยินยอม" style="display:none">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 7: ลายเซ็น -->
+    <div class="section-card" style="position:relative;z-index:10;pointer-events:auto">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div><h2>ลายมือชื่อยืนยัน</h2><p>ลงนามโดยทั้ง 3 ฝ่ายเพื่อความสมบูรณ์ของเอกสาร</p></div>
+      </div>
+      <div class="section-body">
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-title">ลายมือชื่อพนักงาน</div>
+            <div class="sig-canvas-wrap">
+              <canvas id="sigCanvas_emp" class="sig-canvas" width="280" height="110" style="position:relative;z-index:20"></canvas>
+              <div class="sig-hint">วาดลายเซ็นในกรอบ</div>
+            </div>
+            <button type="button" class="sig-clear-btn" onclick="clearSig('emp')">✕ ล้างลายเซ็น</button>
+            <div class="sig-date-input"><span>วันที่</span><input type="date" id="sigDate_emp" class="sig-date-field"></div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-title">ลายมือชื่อผู้ดูแลแปลง</div>
+            <div class="sig-canvas-wrap">
+              <canvas id="sigCanvas_farm" class="sig-canvas" width="280" height="110" style="position:relative;z-index:20"></canvas>
+              <div class="sig-hint">วาดลายเซ็นในกรอบ</div>
+            </div>
+            <button type="button" class="sig-clear-btn" onclick="clearSig('farm')">✕ ล้างลายเซ็น</button>
+            <div class="sig-date-input"><span>วันที่</span><input type="date" id="sigDate_farm" class="sig-date-field"></div>
+          </div>
+          <div class="sig-box sig-box-hr">
+            <div class="sig-title">ลายมือชื่อผู้รับเรื่อง (HR)</div>
+            <div class="sig-canvas-wrap">
+              <canvas id="sigCanvas_hr" class="sig-canvas" width="280" height="110" style="position:relative;z-index:20"></canvas>
+              <div class="sig-hint">สำหรับ HR เท่านั้น</div>
+            </div>
+            <button type="button" class="sig-clear-btn" onclick="clearSig('hr')">✕ ล้างลายเซ็น</button>
+            <div class="sig-date-input"><span>วันที่</span><input type="date" id="sigDate_hr" class="sig-date-field"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Upload Banner -->
+    <div class="photo-banner">
+      <div class="photo-banner-left">
+        <div class="photo-icon">📷</div>
+        <div>
+          <div class="photo-title">แนบภาพถ่ายแปลงเกษตร (Before)</div>
+          <div class="photo-sub">ภาพก่อนเริ่มโครงการช่วยให้ทีมเห็นสภาพแปลงจริง สามารถแนบภายหลังได้หากยังไม่มีในตอนนี้</div>
+          <div class="photo-tags">
+            <span class="photo-tag">🌱 ภาพดิน</span>
+            <span class="photo-tag">🌿 ภาพพืช</span>
+            <span class="photo-tag">📍 ภาพพื้นที่</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a class="photo-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd8SKimVppFHAkNFoDb3bL6eNu0yWCznI8ZVN-2pTtjM4qYcA/viewform" target="_blank" rel="noopener">
+          แนบภาพแปลง
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <span class="photo-note">เปิดในแท็บใหม่</span>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        ส่งใบสมัครเข้าร่วมโครงการ
+      </button>
+      <button type="button" id="pdfBtn" onclick="savePDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        บันทึก PDF เพื่อเก็บแฟ้ม
+      </button>
+    </div>
+
+  </form>
+
+  <div class="form-footer">
+    <div class="logo">Care<span>Farm</span> Connect</div>
+    <p>โครงการสวัสดิการพนักงาน บริษัท RBS (Retail Business Solutions)</p>
+    <p style="margin-top:4px;">สอบถามเพิ่มเติม: ฝ่าย HR โทร 02-553-0077 ต่อ 300</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">✓</div>
+  <h2>ส่งใบสมัครสำเร็จ!</h2>
+  <p>ขอบคุณที่เข้าร่วมโครงการ CareFarm Connect<br>ทีม HR จะติดต่อกลับภายใน 5–7 วันทำการครับ</p>
+  <hr class="success-divider">
+  <span class="success-pdf-label">📄 บันทึกสำเนาใบสมัครไว้สำหรับตัวเอง</span>
+  <div class="success-actions">
+    <button class="btn-success-pdf" onclick="printAndClose()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      บันทึก PDF สำเนาใบสมัคร
+    </button>
+    <button class="btn-success-close" onclick="closeOverlay()">ปิดหน้าต่างนี้โดยไม่บันทึก</button>
+  </div>
+</div>
+
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec';
+
+  // ── Autosave badge ──
+  function saveDraft() {
+    try {
+      const data = collectFormData();
+      localStorage.setItem('carefarm_draft', JSON.stringify(data));
+      const badge = document.getElementById('autosaveBadge');
+      if (badge) { badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 2000); }
+    } catch(e) {}
+  }
+  function loadDraft() {
+    try {
+      const raw = localStorage.getItem('carefarm_draft');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      Object.entries(data).forEach(([name, val]) => {
+        if (!val || val === '-') return;
+        const els = document.querySelectorAll('[name="' + name + '"]');
+        if (!els.length) return;
+        if (els[0].type === 'checkbox' || els[0].type === 'radio') {
+          const vals = val.split(', ');
+          els.forEach(el => { if (vals.includes(el.value)) el.checked = true; });
+        } else { els[0].value = val; }
+      });
+    } catch(e) {}
+  }
+  function clearDraft() {
+    if (!confirm('ต้องการล้างข้อมูลที่กรอกไว้ทั้งหมดใช่หรือไม่?')) return;
+    try { localStorage.removeItem('carefarm_draft'); } catch(e) {}
+    document.getElementById('mainForm').reset();
+    document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+    showToast('ล้างข้อมูลเรียบร้อยแล้ว พร้อมกรอกใหม่', 'info');
+  }
+
+  // ── Toast ──
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.className = 'toast show' + (type ? ' ' + type : '');
+    setTimeout(() => t.className = 'toast', 3000);
+  }
+
+  // ── PDF ──
+  function savePDF() {
+    document.getElementById('successOverlay').classList.remove('show');
+    window.print();
+  }
+  function printAndClose() {
+    const ov = document.getElementById('successOverlay');
+    ov.classList.remove('show');
+    setTimeout(() => { window.print(); setTimeout(() => ov.classList.add('show'), 300); }, 150);
+  }
+  function closeOverlay() {
+    document.getElementById('successOverlay').classList.remove('show');
+    try { localStorage.removeItem('carefarm_draft'); } catch(e) {}
+  }
+
+  // ── Variety search ──
+  const VARIETIES = ['ข้าวหอมมะลิ 105','ข้าวหอมมะลินิล','ข้าว กข.43','ข้าว กข.6','ข้าวปทุมธานี 1','ข้าวเหนียว กข.6','ทุเรียนหมอนทอง','ทุเรียนชะนี','ทุเรียนก้านยาว','ทุเรียนพวงมณี','มังคุดพื้นเมือง','ลองกองดอกดำ','ยางพารา RRIM 600','ยางพารา BPM 24','ยางพารา PB 260','ปาล์มน้ำมันลูกผสมเทเนอรา','สับปะรดปัตตาเวีย','สับปะรดภูแล','มะม่วงน้ำดอกไม้สีทอง','มะม่วงเขียวเสวย','มะม่วงมหาชนก','กล้วยหอมทอง','กล้วยน้ำว้า','มันสำปะหลังระยอง 9','มันสำปะหลังระยอง 72','อ้อย LK 92-11','ข้าวโพดลูกผสม 888','คะน้า','ผักบุ้ง','กะหล่ำปลี','พริก','มะเขือเทศ','แตงกวา','ถั่วฝักยาว'];
+  function filterVariety(val) {
+    const box = document.getElementById('varietySuggest');
+    if (!box || !val) { if(box) box.classList.remove('open'); return; }
+    const matches = VARIETIES.filter(v => v.includes(val)).slice(0, 8);
+    if (!matches.length) { box.classList.remove('open'); return; }
+    box.innerHTML = matches.map(m => '<div onclick="selectVariety('' + m + '')">' + m + '</div>').join('');
+    box.classList.add('open');
+  }
+  function selectVariety(val) {
+    const inp = document.getElementById('varietyInput');
+    const parts = inp.value.split(',').map(s => s.trim());
+    parts[parts.length-1] = val;
+    inp.value = parts.join(', ');
+    const box = document.getElementById('varietySuggest');
+    if (box) box.classList.remove('open');
+  }
+
+  // ── PDPA ──
+  function selectPdpa(which) {
+    var agreeLabel = document.getElementById('pdpa-agree-label');
+    var disagreeLabel = document.getElementById('pdpa-disagree-label');
+    var agreeCircle = document.getElementById('pdpa-agree-circle');
+    var disagreeCircle = document.getElementById('pdpa-disagree-circle');
+    agreeLabel.style.borderColor = '#d8e8d4'; agreeLabel.style.background = '#faf8f3';
+    disagreeLabel.style.borderColor = '#d8e8d4'; disagreeLabel.style.background = '#faf8f3';
+    agreeCircle.textContent = ''; disagreeCircle.textContent = '';
+    if (which === 'agree') {
+      document.getElementById('pdpa_agree').checked = true;
+      agreeLabel.style.borderColor = '#1a7a4a'; agreeLabel.style.background = '#f0faf5';
+      agreeCircle.textContent = '✓'; agreeCircle.style.color = '#1a7a4a'; agreeCircle.style.borderColor = '#1a7a4a';
+    } else {
+      document.getElementById('pdpa_disagree').checked = true;
+      disagreeLabel.style.borderColor = '#c0392b'; disagreeLabel.style.background = '#fff5f5';
+      disagreeCircle.textContent = '✓'; disagreeCircle.style.color = '#c0392b'; disagreeCircle.style.borderColor = '#c0392b';
+    }
+  }
+
+  // ── Signature Canvas ──
+  const sigState = {};
+  function getSigCanvas(who) { return document.getElementById('sigCanvas_' + who); }
+  function getPos(e, canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width, scaleY = canvas.height / rect.height;
+    const src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+  }
+  function startDraw(e, who) {
+    e.preventDefault();
+    const canvas = getSigCanvas(who);
+    const ctx = canvas.getContext('2d');
+    const pos = getPos(e, canvas);
+    sigState[who] = { drawing: true, ctx, canvas };
+    ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
+    ctx.strokeStyle = '#0a4a2e'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  }
+  function draw(e, who) {
+    e.preventDefault();
+    if (!sigState[who] || !sigState[who].drawing) return;
+    const { ctx } = sigState[who];
+    const pos = getPos(e, getSigCanvas(who));
+    ctx.lineTo(pos.x, pos.y); ctx.stroke();
+    getSigCanvas(who).classList.add('has-sig');
+  }
+  function stopDraw(who) { if (sigState[who]) sigState[who].drawing = false; }
+  function clearSig(who) {
+    const canvas = getSigCanvas(who);
+    if (!canvas) return;
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    canvas.classList.remove('has-sig');
+    delete sigState[who];
+  }
+  function compressSig(who) {
+    const canvas = getSigCanvas(who);
+    if (!canvas || !canvas.classList.contains('has-sig')) return '';
+    const small = document.createElement('canvas');
+    small.width = Math.floor(canvas.width * 0.4);
+    small.height = Math.floor(canvas.height * 0.4);
+    const ctx = small.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, small.width, small.height);
+    ctx.drawImage(canvas, 0, 0, small.width, small.height);
+    return small.toDataURL('image/jpeg', 0.4);
+  }
+  function getSigDataURL(who) {
+    const canvas = getSigCanvas(who);
+    if (!canvas || !canvas.classList.contains('has-sig')) return '';
+    return canvas.toDataURL('image/png');
+  }
+  function initCanvases() {
+    // ผูก canvas events
+    ['emp','farm','hr'].forEach(function(who) {
+      const canvas = getSigCanvas(who);
+      if (!canvas) return;
+      canvas.addEventListener('mousedown', function(e) { startDraw(e, who); });
+      canvas.addEventListener('mousemove', function(e) { draw(e, who); });
+      canvas.addEventListener('mouseup', function() { stopDraw(who); });
+      canvas.addEventListener('mouseleave', function() { stopDraw(who); });
+      canvas.addEventListener('touchstart', function(e) { e.preventDefault(); startDraw(e, who); }, { passive: false });
+      canvas.addEventListener('touchmove', function(e) { e.preventDefault(); draw(e, who); }, { passive: false });
+      canvas.addEventListener('touchend', function() { stopDraw(who); });
+    });
+    // ผูก PDPA button events เพิ่มเติมผ่าน JS
+    var agreeBtn = document.getElementById('pdpa-agree-label');
+    var disagreeBtn = document.getElementById('pdpa-disagree-label');
+    if (agreeBtn) agreeBtn.addEventListener('click', function() { selectPdpa('agree'); });
+    if (disagreeBtn) disagreeBtn.addEventListener('click', function() { selectPdpa('disagree'); });
+  }
+
+  // ── Submit ──
+  function setSubmitState(loading) {
+    const btn = document.getElementById('submitBtn');
+    if (!btn) return;
+    if (loading) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> กำลังส่งข้อมูล...';
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> ส่งใบสมัครเข้าร่วมโครงการ';
+    }
+  }
+  function getCheckboxValues(name) {
+    return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(el => el.value).join(', ') || '-';
+  }
+  function formatPhone(val) {
+    if (!val) return '';
+    const digits = String(val).replace(/[^0-9]/g, '');
+    if (digits.length === 9) return '0' + digits;
+    return digits || val;
+  }
+  function collectFormData() {
+    function f(name) { const el = document.querySelector('[name="' + name + '"]'); return el ? (el.value || '') : ''; }
+    return {
+      emp_name: f('emp_name'), emp_id: f('emp_id'), department: f('department'),
+      emp_phone: formatPhone(f('emp_phone')), farm_contact: f('farm_contact'),
+      relationship: f('relationship'), farm_phone: formatPhone(f('farm_phone')),
+      province: f('province'), district: f('district'), subdistrict: f('subdistrict'),
+      map_link: f('map_link'),
+      area_rai: f('area_rai'), area_ngan: f('area_ngan'), area_wa: f('area_wa'),
+      demo_rai: f('demo_rai'), demo_ngan: f('demo_ngan'), demo_wa: f('demo_wa'),
+      water_source: f('water_source'), watering_method: f('watering_method'),
+      soil_type: getCheckboxValues('soil_type'),
+      crop_type: getCheckboxValues('crop_type'),
+      variety: f('variety'), plant_age: f('plant_age'), tree_count: f('tree_count'),
+      cycles_per_year: f('cycles_per_year'), yield_avg: f('yield_avg'),
+      market_channel: f('market_channel'), selling_price: f('selling_price'),
+      harvest_month: getCheckboxValues('harvest_month'),
+      fertilizer_type: f('fertilizer_type'), fertilizer_amount: f('fertilizer_amount'),
+      fertilizer_cost: f('fertilizer_cost'), organic_exp: f('organic_exp'),
+      problems: getCheckboxValues('problems'), problem_detail: f('problem_detail'),
+      weather_risk: getCheckboxValues('weather_risk'),
+      availability: f('availability'), photo_report: f('photo_report'),
+      site_visit: f('site_visit'), additional_info: f('additional_info'),
+      pdpa_consent: document.querySelector('input[name="pdpa_consent"]:checked')?.value || '-',
+      sig_date_emp: document.getElementById('sigDate_emp')?.value || '',
+      sig_date_farm: document.getElementById('sigDate_farm')?.value || '',
+    };
+  }
+
+  function sendSignaturesBackground(mainPayload) {
+    const sigEmp = compressSig('emp'), sigFarm = compressSig('farm');
+    if (!sigEmp && !sigFarm) return;
+    const sigPayload = { emp_id: mainPayload.emp_id, emp_name: mainPayload.emp_name, sig_emp: sigEmp, sig_farm: sigFarm, sig_date_emp: mainPayload.sig_date_emp, sig_date_farm: mainPayload.sig_date_farm, _type: 'signature_update' };
+    setTimeout(() => {
+      fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(sigPayload) }).catch(() => {
+        try { localStorage.setItem('carefarm_pending_sig', JSON.stringify(sigPayload)); } catch(e) {}
+      });
+    }, 3000);
+  }
+  function retrySendPendingSig() {
+    try {
+      const raw = localStorage.getItem('carefarm_pending_sig');
+      if (!raw) return;
+      const sp = JSON.parse(raw);
+      fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(sp) }).then(() => localStorage.removeItem('carefarm_pending_sig')).catch(() => {});
+    } catch(e) {}
+  }
+
+  async function submitViaForm(payload) {
+    try { await fetch(APPS_SCRIPT_URL, { method:'GET', mode:'no-cors' }); } catch(e) {}
+    await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const consent = document.getElementById('consent');
+    if (!consent || !consent.checked) { showToast('กรุณายืนยันการยินยอมข้อมูลก่อนส่งใบสมัคร', 'warn'); return; }
+    setSubmitState(true);
+    const payload = collectFormData();
+    try {
+      await Promise.race([submitViaForm(payload), new Promise(r => setTimeout(r, 8000))]);
+      setSubmitState(false);
+      const ov = document.getElementById('successOverlay');
+      ov.dataset.submitted = 'true';
+      ov.classList.add('show');
+      sendSignaturesBackground(payload);
+      try { localStorage.removeItem('carefarm_draft'); } catch(e) {}
+    } catch(err) {
+      setSubmitState(false);
+      showToast('เกิดข้อผิดพลาด กรุณาลองใหม่', 'warn');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    retrySendPendingSig();
+    initCanvases();
+    const today = new Date().toISOString().split('T')[0];
+    ['emp','farm'].forEach(who => {
+      const el = document.getElementById('sigDate_' + who);
+      if (el) el.value = today;
+    });
+    loadDraft();
+    const form = document.getElementById('mainForm');
+    if (form) {
+      form.addEventListener('change', saveDraft);
+      setInterval(saveDraft, 30000);
+    }
+  });
+</script>
+</body>
+</html>
