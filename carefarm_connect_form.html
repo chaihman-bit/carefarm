@@ -1697,7 +1697,7 @@
     if (!box || !val) { if(box) box.classList.remove('open'); return; }
     const matches = VARIETIES.filter(v => v.includes(val)).slice(0, 8);
     if (!matches.length) { box.classList.remove('open'); return; }
-    box.innerHTML = matches.map(m => '<div onclick="selectVariety('' + m + '')">' + m + '</div>').join('');
+    box.innerHTML = matches.map(m => '<div onclick="selectVariety(\'' + m + '\')">' + m + '</div>').join('');
     box.classList.add('open');
   }
   function selectVariety(val) {
