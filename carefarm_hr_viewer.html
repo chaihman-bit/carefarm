@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareFarm Connect — HR Viewer</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0a4a2e;
+    --green-mid: #1a7a4a;
+    --green-bright: #2db56e;
+    --green-light: #d4f0e2;
+    --green-pale: #f0faf5;
+    --cream: #faf8f3;
+    --warm-gray: #f2efe8;
+    --text-dark: #1a1a18;
+    --text-mid: #4a5548;
+    --text-light: #8a9a88;
+    --border: #d8e8d4;
+    --white: #ffffff;
+    --accent: #e8a23a;
+    --amber-light: #fff8e8;
+    --amber-border: #e8c97a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sarabun', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  /* ── Search/Login Screen ── */
+  .search-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: var(--green-deep);
+  }
+  .search-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .search-logo { font-family: 'Noto Serif Thai', serif; font-size: 22px; font-weight: 600; color: var(--green-deep); margin-bottom: 4px; }
+  .search-logo span { color: var(--green-bright); }
+  .search-sub { font-size: 13px; color: var(--text-light); margin-bottom: 2rem; }
+  .search-label { font-size: 13px; font-weight: 500; color: var(--text-mid); margin-bottom: 6px; display: block; }
+  .search-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--cream);
+    outline: none;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--green-bright); background: var(--white); }
+  .search-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--green-mid);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .search-btn:hover { background: var(--green-deep); }
+  .search-hint { font-size: 11px; color: var(--text-light); margin-top: 12px; text-align: center; line-height: 1.6; }
+  .search-error { font-size: 13px; color: #c0392b; background: #fff5f5; border: 1px solid #f5c6c6; border-radius: 8px; padding: 8px 12px; margin-top: 10px; display: none; }
+
+  /* ── List Screen ── */
+  .list-screen { display: none; padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+  .list-title { font-family: 'Noto Serif Thai', serif; font-size: 20px; color: var(--green-deep); }
+  .list-count { font-size: 13px; color: var(--text-light); }
+  .back-btn {
+    padding: 8px 18px;
+    border: 1.5px solid var(--green-mid);
+    border-radius: 50px;
+    background: var(--white);
+    color: var(--green-mid);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: var(--green-pale); }
+  .submission-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .submission-card:hover { border-color: var(--green-bright); box-shadow: 0 2px 12px rgba(45,181,110,0.12); transform: translateY(-1px); }
+  .sub-info { flex: 1; }
+  .sub-name { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+  .sub-meta { font-size: 12px; color: var(--text-light); margin-top: 3px; }
+  .sub-crop { font-size: 12px; color: var(--green-mid); font-weight: 500; margin-top: 2px; }
+  .view-btn {
+    padding: 8px 18px;
+    background: var(--green-mid);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .view-btn:hover { background: var(--green-deep); }
+
+  /* ── Document Screen ── */
+  .doc-screen { display: none; }
+  .doc-toolbar {
+    background: var(--green-deep);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .doc-toolbar-left { display: flex; align-items: center; gap: 12px; }
+  .doc-toolbar-title { font-size: 14px; color: rgba(255,255,255,0.8); }
+  .doc-toolbar-name { font-size: 15px; font-weight: 600; color: var(--white); }
+  .toolbar-back {
+    padding: 7px 16px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toolbar-back:hover { background: rgba(255,255,255,0.1); color: white; }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 22px;
+    background: var(--white);
+    color: var(--green-deep);
+    border: none;
+    border-radius: 50px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .print-btn:hover { background: var(--green-pale); }
+
+  /* ── Document Content ── */
+  .doc-content { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+
+  /* Hero */
+  .doc-hero {
+    background: var(--green-deep);
+    border-radius: 16px 16px 0 0;
+    padding: 1.25rem 1.5rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(45,181,110,0.12);
+  }
+  .doc-hero-badge {
+    display: inline-block;
+    background: rgba(45,181,110,0.2);
+    color: var(--green-bright);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(45,181,110,0.3);
+  }
+  .doc-hero h1 { font-family: 'Noto Serif Thai', serif; font-size: 20px; color: var(--white); font-weight: 600; margin-bottom: 4px; }
+  .doc-hero-sub { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .doc-hero-meta {
+    background: var(--green-mid);
+    padding: 8px 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .doc-hero-meta span { font-size: 12px; color: rgba(255,255,255,0.75); }
+  .doc-hero-meta strong { color: var(--white); }
+
+  /* Profile ID bar */
+  .profile-bar {
+    background: var(--green-pale);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 10px 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .profile-bar span { font-size: 12px; color: var(--text-mid); }
+  .profile-bar strong { color: var(--green-deep); }
+  .status-pill {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--green-light);
+    color: var(--green-deep);
+    border: 1px solid var(--green-bright);
+  }
+
+  /* Section */
+  .doc-section { background: var(--white); border: 1px solid var(--border); border-top: none; }
+  .doc-section:last-of-type { border-radius: 0 0 16px 16px; }
+  .doc-section-header {
+    background: var(--green-mid);
+    padding: 8px 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .doc-section-num {
+    width: 26px; height: 26px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: var(--white);
+    flex-shrink: 0;
+  }
+  .doc-section-title { font-size: 14px; font-weight: 600; color: var(--white); }
+  .doc-section-body { padding: 1rem 1.25rem; }
+
+  /* Fields grid */
+  .field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+  .field-grid.col2 { grid-template-columns: repeat(2, 1fr); }
+  .field-grid.col1 { grid-template-columns: 1fr; }
+  .field-item { }
+  .field-lbl { font-size: 10.5px; color: var(--text-light); margin-bottom: 2px; font-weight: 500; }
+  .field-val { font-size: 13.5px; color: var(--text-dark); font-weight: 500; border-bottom: 1px solid var(--border); padding-bottom: 4px; min-height: 22px; }
+  .field-val.empty { color: var(--text-light); font-weight: 400; font-style: italic; }
+
+  /* Tags display */
+  .tag-display { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .tag-pill {
+    font-size: 11px;
+    background: var(--green-light);
+    color: var(--green-deep);
+    border-radius: 20px;
+    padding: 2px 10px;
+    border: 1px solid var(--green-bright);
+    font-weight: 500;
+  }
+
+  /* Box text */
+  .doc-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin: 8px 0;
+  }
+  .doc-amber {
+    background: var(--amber-light);
+    border: 1px solid var(--amber-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin: 8px 0;
+  }
+  .doc-amber ol { padding-left: 1.2rem; }
+
+  /* Check row */
+  .check-row { display: flex; gap: 2rem; margin: 8px 0; font-size: 13px; }
+  .check-agree { color: var(--green-deep); font-weight: 600; }
+  .check-disagree { color: #9b2335; }
+
+  /* Signature grid */
+  .sig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px; }
+  .sig-box {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 10px;
+    padding: 10px 12px 14px;
+    text-align: center;
+  }
+  .sig-title { font-size: 12px; font-weight: 600; color: var(--green-deep); margin-bottom: 24px; }
+  .sig-line { border-top: 1px solid var(--border); padding-top: 4px; font-size: 11px; color: var(--text-light); margin: 0 4px; }
+  .sig-name { font-size: 11.5px; color: var(--text-mid); margin: 4px 0; }
+  .sig-date { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+  /* Doc control footer */
+  .doc-ctrl {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 1rem;
+  }
+  .doc-ctrl span:nth-child(2) { text-align: center; }
+  .doc-ctrl span:last-child { text-align: right; }
+
+  /* Divider */
+  .doc-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 3rem; color: var(--text-light); font-size: 14px; }
+  .spinner-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .spin { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--green-bright); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Print styles */
+  @media print {
+    .doc-toolbar { display: none !important; }
+    .doc-content { margin: 0; padding: 0; max-width: 100%; }
+    .search-screen, .list-screen { display: none !important; }
+    .doc-screen { display: block !important; }
+    .doc-hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-radius: 0; }
+    .doc-section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .profile-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .doc-section { break-inside: avoid; }
+    .sig-grid { break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .field-grid { grid-template-columns: 1fr 1fr; }
+    .field-grid.col1 { grid-template-columns: 1fr; }
+    .sig-grid { grid-template-columns: 1fr; }
+    .doc-ctrl { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SEARCH SCREEN ── -->
+<div class="search-screen" id="searchScreen">
+  <div class="search-card">
+    <div class="search-logo">Care<span>Farm</span> Connect</div>
+    <div class="search-sub">ระบบดูใบสมัครสำหรับทีม HR</div>
+
+    <label class="search-label">Google Sheet ID<span style="color:#d44">*</span></label>
+    <input class="search-input" id="sheetId" type="text"
+      placeholder="วาง Sheet ID ที่นี่ เช่น 1b06sZkL..."
+      value="1b06sZkL1j7ggtrO7LjC7DNwxWRwPMdyLweW9qsZGWkA">
+
+    <label class="search-label">Apps Script URL<span style="color:#d44">*</span></label>
+    <input class="search-input" id="scriptUrl" type="text"
+      placeholder="วาง Web App URL ที่นี่"
+      value="https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec">
+
+    <button class="search-btn" onclick="loadSubmissions()">
+      🔍 โหลดรายการใบสมัคร
+    </button>
+    <div class="search-error" id="searchError"></div>
+    <p class="search-hint">หน้านี้สำหรับทีม HR เท่านั้น · ข้อมูลดึงมาจาก Google Sheets โดยตรง</p>
+  </div>
+</div>
+
+<!-- ── LIST SCREEN ── -->
+<div class="list-screen" id="listScreen">
+  <div class="list-header">
+    <div>
+      <div class="list-title">รายการใบสมัคร CareFarm Connect</div>
+      <div class="list-count" id="listCount"></div>
+    </div>
+    <button class="back-btn" onclick="showSearch()">← กลับ</button>
+  </div>
+  <div id="submissionList">
+    <div class="loading"><div class="spinner-wrap"><div class="spin"></div><span>กำลังโหลด...</span></div></div>
+  </div>
+</div>
+
+<!-- ── DOCUMENT SCREEN ── -->
+<div class="doc-screen" id="docScreen">
+  <div class="doc-toolbar">
+    <div class="doc-toolbar-left">
+      <button class="toolbar-back" onclick="showList()">← รายการ</button>
+      <div>
+        <div class="doc-toolbar-title">ใบสมัคร CareFarm Connect</div>
+        <div class="doc-toolbar-name" id="toolbarName">—</div>
+      </div>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      พิมพ์ / บันทึก PDF
+    </button>
+  </div>
+  <div class="doc-content" id="docContent">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<script>
+  // ── Config (pre-filled) ───────────────────────────────
+  const DEFAULT_SHEET_ID  = '1b06sZkL1j7ggtrO7LjC7DNwxWRwPMdyLweW9qsZGWkA';
+  const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec';
+
+  let allSubmissions = [];
+
+  // ── Screen navigation ─────────────────────────────────
+  function showSearch() {
+    document.getElementById('searchScreen').style.display = 'flex';
+    document.getElementById('listScreen').style.display   = 'none';
+    document.getElementById('docScreen').style.display    = 'none';
+  }
+  function showList() {
+    document.getElementById('searchScreen').style.display = 'none';
+    document.getElementById('listScreen').style.display   = 'block';
+    document.getElementById('docScreen').style.display    = 'none';
+    window.scrollTo(0, 0);
+  }
+  function showDoc() {
+    document.getElementById('searchScreen').style.display = 'none';
+    document.getElementById('listScreen').style.display   = 'none';
+    document.getElementById('docScreen').style.display    = 'block';
+  }
+
+  // ── Load submissions via JSONP (แก้ปัญหา CORS) ──────────
+  function loadSubmissions() {
+    const scriptUrl = document.getElementById('scriptUrl').value.trim();
+    const errEl = document.getElementById('searchError');
+    errEl.style.display = 'none';
+
+    if (!scriptUrl) {
+      errEl.textContent = 'กรุณากรอก Apps Script URL';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    showList();
+    document.getElementById('submissionList').innerHTML =
+      '<div class="loading"><div class="spinner-wrap"><div class="spin"></div><span>กำลังโหลดข้อมูล...</span></div></div>';
+
+    // ลบ script tag เก่าถ้ามี
+    const old = document.getElementById('jsonpScript');
+    if (old) old.remove();
+
+    // timeout กรณีไม่ตอบกลับ
+    const timer = setTimeout(() => {
+      showListError('หมดเวลาเชื่อมต่อ กรุณาตรวจสอบ URL และลองใหม่อีกครั้ง');
+    }, 15000);
+
+    // สร้าง callback function สำหรับ JSONP
+    window._carefarmCallback = function(json) {
+      clearTimeout(timer);
+      if (json && json.status === 'ok' && json.data) {
+        allSubmissions = json.data;
+        renderList(json.data);
+      } else {
+        showListError('ไม่พบข้อมูลใน Sheet หรือ Sheet ยังว่างอยู่');
+      }
+      delete window._carefarmCallback;
+    };
+
+    // inject script tag แบบ JSONP
+    const script = document.createElement('script');
+    script.id  = 'jsonpScript';
+    script.src = scriptUrl + '?action=getAll&callback=_carefarmCallback';
+    script.onerror = () => {
+      clearTimeout(timer);
+      showListError('เชื่อมต่อไม่ได้ กรุณาตรวจสอบ URL และ Deploy setting (Anyone)');
+    };
+    document.head.appendChild(script);
+  }
+
+  function showListError(msg) {
+    document.getElementById('submissionList').innerHTML =
+      `<div style="text-align:center;padding:2rem;color:#c0392b;font-size:14px;background:#fff5f5;border-radius:12px;border:1px solid #f5c6c6;">${msg}</div>`;
+  }
+
+  // ── Render list ──────────────────────────────────────
+  function renderList(data) {
+    const count = data.length;
+    document.getElementById('listCount').textContent = 'พบใบสมัครทั้งหมด ' + count + ' รายการ';
+
+    if (!count) {
+      document.getElementById('submissionList').innerHTML =
+        '<div class="loading">ยังไม่มีใบสมัครในระบบ</div>';
+      return;
+    }
+
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      var row = data[i];
+      html += '<div class="submission-card">' +
+        '<div class="sub-info">' +
+          '<div class="sub-name">' + (row.emp_name||'—') +
+            ' <span style="font-size:12px;color:var(--text-light);font-weight:400">| ' + (row.emp_id||'') + '</span></div>' +
+          '<div class="sub-meta">📍 ' + (row.province||'—') +
+            ' · ผู้ดูแล: ' + (row.farm_contact||'—') +
+            ' · ' + (row.timestamp||'') + '</div>' +
+          '<div class="sub-crop">🌿 ' + (row.crop_type||'—') +
+            ' · ' + (row.variety||'—') + '</div>' +
+        '</div>' +
+        '<button class="view-btn" onclick="openDoc(' + i + ')">ดูใบสมัคร</button>' +
+      '</div>';
+    }
+    document.getElementById('submissionList').innerHTML = html;
+  }
+
+  // ── Open document (global function) ──────────────────
+  function openDoc(idx) {
+    try {
+      var d = allSubmissions[idx];
+      if (!d) { alert('ไม่พบข้อมูล index: ' + idx + ' total: ' + allSubmissions.length); return; }
+
+      // ซ่อน-แสดง screens ก่อน render
+      document.getElementById('searchScreen').style.display = 'none';
+      document.getElementById('listScreen').style.display   = 'none';
+      document.getElementById('docScreen').style.display    = 'block';
+
+      // ใส่ชื่อใน toolbar
+      document.getElementById('toolbarName').textContent =
+        (d.emp_name || '—') + ' — ' + (d.emp_id || '');
+
+      // render เนื้อหา
+      var html = renderDoc(d);
+      document.getElementById('docContent').innerHTML = html;
+
+      window.scrollTo(0, 0);
+    } catch(err) {
+      alert('เกิดข้อผิดพลาด: ' + err.message);
+      console.error('openDoc error:', err);
+    }
+  }
+
+  // ── View single submission (alias) ───────────────────
+  function viewSubmission(idx) { openDoc(idx); }
+
+  // ── Helpers ───────────────────────────────────────────
+  function tags(v)  {
+    if (!v || v === '-') return '<span style="color:var(--text-light);font-size:12px">—</span>';
+    return v.split(',').map(t => t.trim()).filter(Boolean)
+      .map(t => `<span class="tag-pill">${t}</span>`).join('');
+  }
+  function fld(label, value, cls='') {
+    const display = (value && value !== '-')
+      ? `<div class="field-val">${value}</div>`
+      : `<div class="field-val empty">—</div>`;
+    return `<div class="field-item ${cls}"><div class="field-lbl">${label}</div>${display}</div>`;
+  }
+
+  // ── Format phone helper ─────────────────────────────────
+  function formatPhone(val) {
+    if (!val || val === '-') return '—';
+    var s = String(val).replace(/[^0-9]/g, '');
+    if (!s) return '—';
+    // ถ้า 9 หลัก ให้เติม 0 นำหน้า
+    if (s.length === 9) s = '0' + s;
+    // จัดรูปแบบ 0XX-XXX-XXXX
+    if (s.length === 10) return s.substring(0,3) + '-' + s.substring(3,6) + '-' + s.substring(6);
+    return s;
+  }
+
+  // ── Format date helper ───────────────────────────────────
+  function formatDate(raw) {
+    if (!raw) return '—';
+    var s = String(raw);
+    try {
+      // ถ้าเป็น ISO format เช่น 2569-04-22T... หรือ 2026-04-22T...
+      var match = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (match) {
+        var year = parseInt(match[1]);
+        var month = match[2];
+        var day = match[3];
+        // ถ้าปีเป็น ค.ศ. (น้อยกว่า 2500) ให้แปลงเป็น พ.ศ.
+        if (year < 2500) year = year + 543;
+        return day + '/' + month + '/' + year;
+      }
+      // ถ้าเป็น format อื่น เช่น "22/04/2569" หรือ "2569-04-22 09:25:39"
+      var match2 = s.match(/^(\d{4})[-\/](\d{2})[-\/](\d{2})/);
+      if (match2) {
+        var year2 = parseInt(match2[1]);
+        if (year2 < 2500) year2 = year2 + 543;
+        return match2[3] + '/' + match2[2] + '/' + year2;
+      }
+    } catch(e) {}
+    return s.substring(0, 10) || '—';
+  }
+
+  // ── Render full document ───────────────────────────────
+  function renderDoc(d) {
+    const docNum = String(d.emp_id || 'XXXX').replace(/[^A-Za-z0-9-]/g,'');
+    return `
+    <!-- HERO -->
+    <div class="doc-hero">
+      <h1>CareFarm Connect</h1>
+      <div class="doc-hero-sub">แบบฟอร์มสมัครเข้าร่วมโครงการเกษตรอินทรีย์ต้นแบบ (รุ่นที่ 1) | บริษัท RBS (Retail Business Solutions)</div>
+    </div>
+    <div class="doc-hero-meta">
+      <span>📅 วันที่รับใบสมัคร: <strong>${formatDate(d.timestamp)}</strong></span>
+      <span>📋 รหัสเอกสาร: <strong>CF-CONSENT-${docNum}</strong></span>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">1</div>
+        <div class="doc-section-title">ข้อมูลพนักงานผู้สมัคร</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="field-grid">
+          ${fld('ชื่อ-นามสกุลพนักงาน', d.emp_name)}
+          ${fld('รหัสพนักงาน', d.emp_id)}
+          ${fld('แผนก / ฝ่าย', d.department)}
+        </div>
+        <div class="field-grid">
+          ${fld('เบอร์โทรพนักงาน', formatPhone(d.emp_phone))}
+          ${fld('ชื่อผู้ดูแลแปลงหลัก', d.farm_contact)}
+          ${fld('ความสัมพันธ์', d.relationship)}
+        </div>
+        <div class="field-grid col1">
+          ${fld('เบอร์โทรผู้ดูแลแปลง (สำหรับประสานลงพื้นที่)', formatPhone(d.farm_phone))}
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">2</div>
+        <div class="doc-section-title">ข้อมูลพื้นที่เกษตร</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="field-grid">
+          ${fld('จังหวัด', d.province)}
+          ${fld('อำเภอ', d.district)}
+          ${fld('ตำบล', d.subdistrict)}
+        </div>
+        <div class="field-grid col1">
+          ${fld('Google Maps Link (พิกัดแปลง)', d.map_link)}
+        </div>
+        <hr class="doc-divider">
+        <div class="field-grid">
+          ${fld('ขนาดพื้นที่ทั้งหมด', (d.area_rai||0)+' ไร่ '+(d.area_ngan||0)+' งาน '+(d.area_wa||0)+' ตร.วา')}
+          ${fld('ขนาดแปลงสาธิต', (d.demo_rai||0)+' ไร่ '+(d.demo_ngan||0)+' งาน '+(d.demo_wa||0)+' ตร.วา')}
+          ${fld('แหล่งน้ำ / วิธีให้น้ำ', (d.water_source||'—')+' / '+(d.watering_method||'—'))}
+        </div>
+        <div class="field-item">
+          <div class="field-lbl">ลักษณะดินโดยรวม</div>
+          <div class="tag-display">${tags(d.soil_type)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">3</div>
+        <div class="doc-section-title">ข้อมูลพืชที่ปลูก</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="field-item" style="margin-bottom:10px">
+          <div class="field-lbl">ประเภทพืชหลัก</div>
+          <div class="tag-display">${tags(d.crop_type)}</div>
+        </div>
+        <div class="field-grid">
+          ${fld('สายพันธุ์ที่ปลูก', d.variety)}
+          ${fld('อายุต้น / ปีที่ทำเกษตร (ปี)', d.plant_age)}
+          ${fld('จำนวนต้น (สำหรับไม้ผล)', d.tree_count)}
+        </div>
+        <div class="field-grid">
+          ${fld('รอบการผลิตต่อปี', d.cycles_per_year)}
+          ${fld('ผลผลิตเฉลี่ยต่อรอบ', d.yield_avg)}
+          ${fld('แหล่งจำหน่ายผลผลิต', d.market_channel)}
+        </div>
+        <div class="field-grid col2">
+          <div class="field-item">
+            <div class="field-lbl">ช่วงเดือนเก็บเกี่ยว / เก็บผลผลิต</div>
+            <div class="tag-display">${tags(d.harvest_month)}</div>
+          </div>
+          ${fld('ราคาขายผลผลิตเฉลี่ย', d.selling_price)}
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">4</div>
+        <div class="doc-section-title">ประวัติการใช้ปุ๋ยและสารเคมี</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="field-grid">
+          ${fld('ปุ๋ยที่ใช้ (สูตร / ยี่ห้อ)', d.fertilizer_type)}
+          ${fld('ปริมาณต่อรอบ', d.fertilizer_amount)}
+          ${fld('ค่าใช้จ่ายต่อรอบ', d.fertilizer_cost)}
+        </div>
+        <div class="field-grid col2">
+          ${fld('ประสบการณ์ปุ๋ยอินทรีย์', d.organic_exp)}
+
+        </div>
+        <div class="field-item" style="margin:8px 0">
+          <div class="field-lbl">ปัญหาหลักที่พบในแปลง (เลือกได้มากกว่า 1)</div>
+          <div class="tag-display">${tags(d.problems)}</div>
+        </div>
+        <div class="field-item" style="margin:8px 0">
+          <div class="field-lbl">ประวัติความเสี่ยงด้านสภาพอากาศ</div>
+          <div class="tag-display">${tags(d.weather_risk)}</div>
+        </div>
+        ${d.problem_detail && d.problem_detail !== '-' ? '<div class="doc-box">📝 รายละเอียด: ' + d.problem_detail + '</div>' : ''}
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">5</div>
+        <div class="doc-section-title">ความพร้อมในการเข้าร่วม</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="field-grid">
+          ${fld('ความพร้อมดูแลแปลง', d.availability)}
+          ${fld('รายงานภาพ Before/After', d.photo_report)}
+          ${fld('รับทีม RBS ลงพื้นที่', d.site_visit)}
+        </div>
+        ${d.additional_info && d.additional_info !== '-' ? '<div class="doc-box">💬 ข้อมูลเพิ่มเติม: ' + d.additional_info + '</div>' : ''}
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">6</div>
+        <div class="doc-section-title">ข้อตกลงการเข้าร่วมโครงการ</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="doc-box">
+          ข้าพเจ้าในฐานะพนักงานบริษัท RBS และ/หรือผู้แทนครอบครัว ขอยืนยันว่าข้อมูลที่ให้ไว้เป็นความจริงทุกประการ และยินยอมผูกพันตามข้อตกลงต่อไปนี้
+          <ol style="padding-left:1.2rem;margin-top:6px">
+            <li>ยินยอมให้บริษัท RBS จัดส่งปุ๋ยอินทรีย์และให้คำแนะนำด้านเกษตรแก่แปลงที่ระบุในแบบฟอร์ม</li>
+            <li>ผู้ดูแลแปลงจะดูแลแปลงสาธิตต่อเนื่องตลอดระยะเวลาโครงการตามที่กำหนด</li>
+            <li>ยินยอมให้ทีมงาน RBS ลงพื้นที่เยี่ยมชมและเก็บข้อมูลแปลงตามที่นัดหมายล่วงหน้า</li>
+            <li>จัดส่งรายงานภาพถ่ายความคืบหน้า (Before/After) ผ่าน Google Form ตามรอบที่กำหนด</li>
+            <li>ยินยอมให้ใช้ข้อมูลและภาพถ่ายแปลงเพื่อการวิจัยและเผยแพร่ภายในองค์กร RBS</li>
+          </ol>
+        </div>
+        <div class="doc-amber">
+          <strong>การยินยอมตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)</strong><br>
+          บริษัท RBS จะจัดเก็บและประมวลผลข้อมูลส่วนบุคคลของท่านเพื่อวัตถุประสงค์ในการดำเนินโครงการ CareFarm Connect
+          และจะไม่เปิดเผยต่อบุคคลภายนอกโดยไม่ได้รับความยินยอม
+          ท่านมีสิทธิ์เพิกถอนได้ตลอดเวลาโดยติดต่อฝ่าย HR โทร 02-553-0077 ต่อ 300
+        </div>
+        <div class="check-row">
+          <span class="check-agree">☐ ยินยอม ให้บริษัทจัดเก็บและประมวลผลข้อมูลส่วนบุคคล</span>
+          <span class="check-disagree">☐ ไม่ยินยอม (ติดต่อ HR ก่อนสมัคร)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-num">7</div>
+        <div class="doc-section-title">ลายมือชื่อยืนยัน</div>
+      </div>
+      <div class="doc-section-body">
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-title">ลายมือชื่อพนักงาน</div>
+            <div class="sig-line">................................................................</div>
+            <div class="sig-name">(${d.emp_name || '..............................'})</div>
+            <div class="sig-date">วันที่ ......... / ......... / .........</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-title">ลายมือชื่อผู้ดูแลแปลง</div>
+            <div class="sig-line">................................................................</div>
+            <div class="sig-name">(${d.farm_contact || '..............................'})</div>
+            <div class="sig-date">วันที่ ......... / ......... / .........</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-title">ลายมือชื่อผู้รับเรื่อง (HR)</div>
+            <div class="sig-line">................................................................</div>
+            <div class="sig-name">(..............................)</div>
+            <div class="sig-date">วันที่ ......... / ......... / .........</div>
+          </div>
+        </div>
+        <div class="doc-ctrl" style="margin-top:1rem">
+          <span>เลขที่เอกสาร: CF-CONSENT-${docNum}</span>
+          <span>ฉบับที่: ☐ ต้นฉบับ &nbsp; ☐ สำเนา</span>
+          <span>HR โทร 02-553-0077 ต่อ 300</span>
+        </div>
+      </div>
+    </div>`;
+  }
+</script>
+
+</body>
+</html>
