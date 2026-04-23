@@ -615,6 +615,38 @@
   .photo-note { font-size: 12px; color: var(--text-light); margin-top: 6px; }
 
 
+  /* ── Crop Rows ── */
+  .crop-row {
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .crop-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .crop-row-num {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+  .crop-row-remove {
+    background: none;
+    border: 1px solid #c0392b;
+    color: #c0392b;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+  }
+  .crop-row-remove:hover { background: #fff5f5; }
+
   /* ─── PDF / Print styles ─────────────────────────── */
   @media print {
     body { background: #fff !important; }
@@ -1264,62 +1296,103 @@
         <div class="section-num">3</div>
         <div>
           <h2>ข้อมูลพืชที่ปลูก</h2>
-          <p>ชนิดพืช สายพันธุ์ และผลผลิต</p>
+          <p>ระบุพืชทุกชนิดในแปลง — สามารถเพิ่มได้สูงสุด 5 ชนิด</p>
         </div>
       </div>
       <div class="section-body">
-        <div class="field-group">
-          <label class="field-label">ประเภทพืชหลักในแปลงสาธิต<span class="req">*</span> (เลือกได้มากกว่า 1)</label>
-          <div class="tag-group">
-            <input type="checkbox" id="crop1" name="crop_type" value="ข้าว"><label for="crop1">🌾 ข้าว</label>
-            <input type="checkbox" id="crop2" name="crop_type" value="สับปะรด"><label for="crop2">🍍 สับปะรด</label>
-            <input type="checkbox" id="crop3" name="crop_type" value="มังคุด"><label for="crop3">🟣 มังคุด</label>
-            <input type="checkbox" id="crop4" name="crop_type" value="ลองกอง"><label for="crop4">🟡 ลองกอง</label>
-            <input type="checkbox" id="crop5" name="crop_type" value="ทุเรียน"><label for="crop5">🌵 ทุเรียน</label>
-            <input type="checkbox" id="crop6" name="crop_type" value="ยางพารา"><label for="crop6">🌿 ยางพารา</label>
-            <input type="checkbox" id="crop7" name="crop_type" value="ปาล์มน้ำมัน"><label for="crop7">🌴 ปาล์มน้ำมัน</label>
-            <input type="checkbox" id="crop8" name="crop_type" value="ผลไม้อื่นๆ"><label for="crop8">🍊 ผลไม้ (อื่นๆ)</label>
-            <input type="checkbox" id="crop9" name="crop_type" value="ผัก"><label for="crop9">🥬 ผัก</label>
-            <input type="checkbox" id="crop10" name="crop_type" value="พืชไร่"><label for="crop10">🌽 พืชไร่</label>
-            <input type="checkbox" id="crop11" name="crop_type" value="อื่นๆ"><label for="crop11">+ อื่นๆ</label>
-          </div>
-        </div>
 
-        <div class="field-row single">
-          <div class="field">
-            <label>สายพันธุ์ที่ปลูก<span class="req">*</span></label>
-            <div class="variety-wrap">
-              <input type="text" name="variety" id="varietyInput"
-                placeholder="พิมพ์เพื่อค้นหา เช่น หอมมะลิ, หมอนทอง, ระยอง..."
-                autocomplete="off" required oninput="filterVariety(this.value)" onblur="setTimeout(()=>closeVariety(),200)">
-              <div class="variety-suggest" id="varietySuggest"></div>
+        <!-- Dynamic crop rows -->
+        <div id="cropRowsContainer">
+          <!-- Row 1 (บังคับ) -->
+          <div class="crop-row" id="cropRow_1">
+            <div class="crop-row-header">
+              <span class="crop-row-num">🌿 พืชชนิดที่ 1</span>
             </div>
-            <span class="hint">เลือกจากรายการ หรือพิมพ์ชื่อเองได้ · หากปลูกหลายชนิด คั่นด้วยจุลภาค</span>
-          </div>
+            <div class="field-group">
+              <label class="field-label">ประเภทพืชหลัก<span class="req">*</span></label>
+              <div class="tag-group">
+                <input type="checkbox" id="ct1_1" name="crop_type_1" value="ข้าว"><label for="ct1_1">🌾 ข้าว</label>
+                <input type="checkbox" id="ct1_2" name="crop_type_1" value="ทุเรียน"><label for="ct1_2">🌵 ทุเรียน</label>
+                <input type="checkbox" id="ct1_3" name="crop_type_1" value="ยางพารา"><label for="ct1_3">🌳 ยางพารา</label>
+                <input type="checkbox" id="ct1_4" name="crop_type_1" value="ปาล์มน้ำมัน"><label for="ct1_4">🌴 ปาล์มน้ำมัน</label>
+                <input type="checkbox" id="ct1_5" name="crop_type_1" value="มังคุด"><label for="ct1_5">🟣 มังคุด</label>
+                <input type="checkbox" id="ct1_6" name="crop_type_1" value="ลองกอง"><label for="ct1_6">🟡 ลองกอง</label>
+                <input type="checkbox" id="ct1_7" name="crop_type_1" value="มะม่วง"><label for="ct1_7">🥭 มะม่วง</label>
+                <input type="checkbox" id="ct1_8" name="crop_type_1" value="กล้วย"><label for="ct1_8">🍌 กล้วย</label>
+                <input type="checkbox" id="ct1_9" name="crop_type_1" value="มันสำปะหลัง"><label for="ct1_9">🥔 มันสำปะหลัง</label>
+                <input type="checkbox" id="ct1_10" name="crop_type_1" value="อ้อย"><label for="ct1_10">🎋 อ้อย</label>
+                <input type="checkbox" id="ct1_11" name="crop_type_1" value="ผัก/สมุนไพร"><label for="ct1_11">🥬 ผัก/สมุนไพร</label>
+                <input type="checkbox" id="ct1_12" name="crop_type_1" value="ไม้ผลอื่นๆ"><label for="ct1_12">🍈 ไม้ผลอื่นๆ</label>
+              </div>
+            </div>
+            <div class="field-row single">
+              <div class="field">
+                <label>สายพันธุ์ที่ปลูก (ระบุทุกสายพันธุ์ คั่นด้วยจุลภาค)<span class="req">*</span></label>
+                <div class="variety-wrap">
+                  <input type="text" name="variety_1" id="varietyInput_1" class="variety-input"
+                    placeholder="เช่น หมอนทอง, ชะนี, ก้านยาว" autocomplete="off" required
+                    oninput="filterVarietyRow(this, 1)" onblur="setTimeout(()=>closeVarietyRow(1),200)">
+                  <div class="variety-suggest" id="varietySuggest_1"></div>
+                </div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>อายุต้น / ปีที่ทำเกษตร (ปี)</label>
+                <input type="number" name="plant_age_1" placeholder="เช่น 7" min="0">
+              </div>
+              <div class="field">
+                <label>จำนวนต้น (สำหรับไม้ผล)</label>
+                <input type="number" name="tree_count_1" placeholder="เช่น 40 ต้น" min="0">
+              </div>
+              <div class="field">
+                <label>รอบการผลิตต่อปี (รอบ)</label>
+                <input type="number" name="cycles_per_year_1" placeholder="เช่น 1" min="1">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>ผลผลิตเฉลี่ยต่อรอบ</label>
+                <input type="text" name="yield_avg_1" placeholder="เช่น 500 กก./ไร่">
+              </div>
+              <div class="field">
+                <label>ราคาขายผลผลิตเฉลี่ย</label>
+                <input type="text" name="selling_price_1" placeholder="เช่น 150 บาท/กก.">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">ช่วงเดือนเก็บเกี่ยว</label>
+              <div class="season-row tag-group">
+                <input type="checkbox" id="m1_1" name="harvest_month_1" value="ม.ค."><label for="m1_1">ม.ค.</label>
+                <input type="checkbox" id="m2_1" name="harvest_month_1" value="ก.พ."><label for="m2_1">ก.พ.</label>
+                <input type="checkbox" id="m3_1" name="harvest_month_1" value="มี.ค."><label for="m3_1">มี.ค.</label>
+                <input type="checkbox" id="m4_1" name="harvest_month_1" value="เม.ย."><label for="m4_1">เม.ย.</label>
+                <input type="checkbox" id="m5_1" name="harvest_month_1" value="พ.ค."><label for="m5_1">พ.ค.</label>
+                <input type="checkbox" id="m6_1" name="harvest_month_1" value="มิ.ย."><label for="m6_1">มิ.ย.</label>
+                <input type="checkbox" id="m7_1" name="harvest_month_1" value="ก.ค."><label for="m7_1">ก.ค.</label>
+                <input type="checkbox" id="m8_1" name="harvest_month_1" value="ส.ค."><label for="m8_1">ส.ค.</label>
+                <input type="checkbox" id="m9_1" name="harvest_month_1" value="ก.ย."><label for="m9_1">ก.ย.</label>
+                <input type="checkbox" id="m10_1" name="harvest_month_1" value="ต.ค."><label for="m10_1">ต.ค.</label>
+                <input type="checkbox" id="m11_1" name="harvest_month_1" value="พ.ย."><label for="m11_1">พ.ย.</label>
+                <input type="checkbox" id="m12_1" name="harvest_month_1" value="ธ.ค."><label for="m12_1">ธ.ค.</label>
+              </div>
+            </div>
+          </div><!-- /cropRow_1 -->
+        </div><!-- /cropRowsContainer -->
+
+        <!-- ปุ่มเพิ่มพืช -->
+        <div style="text-align:center;margin-top:1rem">
+          <button type="button" id="addCropBtn" onclick="addCropRow()" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1.5px dashed var(--green-mid);border-radius:50px;background:var(--green-pale);color:var(--green-deep);font-family:'Sarabun',sans-serif;font-size:14px;font-weight:600;cursor:pointer">
+            + เพิ่มพืชชนิดอื่น (สูงสุด 5 ชนิด)
+          </button>
         </div>
 
-        <div class="field-row triple">
-          <div class="field">
-            <label>อายุต้น / ปีที่ทำเกษตรในพื้นที่ (ปี)<span class="req">*</span></label>
-            <input type="number" name="plant_age" placeholder="เช่น 5" min="0" required>
-          </div>
-          <div class="field">
-            <label>จำนวนต้น (สำหรับไม้ผล)</label>
-            <input type="number" name="tree_count" placeholder="เช่น 50 ต้น" min="0">
-          </div>
-          <div class="field">
-            <label>รอบการผลิตต่อปี (รอบ)</label>
-            <input type="number" name="cycles_per_year" placeholder="เช่น 2" min="1">
-          </div>
-        </div>
+        <hr class="divider" style="margin-top:1.25rem">
 
-        <div class="field-row">
+        <!-- ช่องทางขาย (รวม) -->
+        <div class="field-row" style="margin-top:1rem">
           <div class="field">
-            <label>ผลผลิตเฉลี่ยต่อรอบที่ผ่านมา</label>
-            <input type="text" name="yield_avg" placeholder="เช่น 500 กก./ไร่ หรือ 80 กก./ต้น">
-          </div>
-          <div class="field">
-            <label>แหล่งจำหน่ายผลผลิต</label>
+            <label>แหล่งจำหน่ายผลผลิตหลัก</label>
             <select name="market_channel">
               <option value="">— เลือก —</option>
               <option>ขายให้พ่อค้าคนกลาง</option>
@@ -1332,23 +1405,6 @@
           </div>
         </div>
 
-        <div class="field-group">
-          <label class="field-label">ช่วงเวลาเพาะปลูก / เก็บเกี่ยวหลัก (เลือกได้มากกว่า 1)</label>
-          <div class="season-row tag-group">
-            <input type="checkbox" id="mon1" name="harvest_month" value="ม.ค."><label for="mon1">ม.ค.</label>
-            <input type="checkbox" id="mon2" name="harvest_month" value="ก.พ."><label for="mon2">ก.พ.</label>
-            <input type="checkbox" id="mon3" name="harvest_month" value="มี.ค."><label for="mon3">มี.ค.</label>
-            <input type="checkbox" id="mon4" name="harvest_month" value="เม.ย."><label for="mon4">เม.ย.</label>
-            <input type="checkbox" id="mon5" name="harvest_month" value="พ.ค."><label for="mon5">พ.ค.</label>
-            <input type="checkbox" id="mon6" name="harvest_month" value="มิ.ย."><label for="mon6">มิ.ย.</label>
-            <input type="checkbox" id="mon7" name="harvest_month" value="ก.ค."><label for="mon7">ก.ค.</label>
-            <input type="checkbox" id="mon8" name="harvest_month" value="ส.ค."><label for="mon8">ส.ค.</label>
-            <input type="checkbox" id="mon9" name="harvest_month" value="ก.ย."><label for="mon9">ก.ย.</label>
-            <input type="checkbox" id="mon10" name="harvest_month" value="ต.ค."><label for="mon10">ต.ค.</label>
-            <input type="checkbox" id="mon11" name="harvest_month" value="พ.ย."><label for="mon11">พ.ย.</label>
-            <input type="checkbox" id="mon12" name="harvest_month" value="ธ.ค."><label for="mon12">ธ.ค.</label>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -1735,6 +1791,119 @@
     }
   });
 
+  // ── Dynamic Crop Rows ──────────────────────────────
+  var cropRowCount = 1;
+  var MAX_CROPS = 5;
+
+  function addCropRow() {
+    if (cropRowCount >= MAX_CROPS) {
+      showToast('เพิ่มได้สูงสุด ' + MAX_CROPS + ' ชนิดพืชครับ', 'warn');
+      return;
+    }
+    cropRowCount++;
+    var n = cropRowCount;
+    var months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    var crops = [['ข้าว','🌾'],['ทุเรียน','🌵'],['ยางพารา','🌳'],['ปาล์มน้ำมัน','🌴'],['มังคุด','🟣'],['ลองกอง','🟡'],['มะม่วง','🥭'],['กล้วย','🍌'],['มันสำปะหลัง','🥔'],['อ้อย','🎋'],['ผัก/สมุนไพร','🥬'],['ไม้ผลอื่นๆ','🍈']];
+
+    var checkboxHtml = crops.map(function(c, i) {
+      var id = 'ct' + (i+1) + '_' + n;
+      return '<input type="checkbox" id="' + id + '" name="crop_type_' + n + '" value="' + c[0] + '"><label for="' + id + '">' + c[1] + ' ' + c[0] + '</label>';
+    }).join('');
+
+    var monthHtml = months.map(function(m, i) {
+      var id = 'm' + (i+1) + '_' + n;
+      return '<input type="checkbox" id="' + id + '" name="harvest_month_' + n + '" value="' + m + '"><label for="' + id + '">' + m + '</label>';
+    }).join('');
+
+    var div = document.createElement('div');
+    div.className = 'crop-row';
+    div.id = 'cropRow_' + n;
+    div.innerHTML =
+      '<div class="crop-row-header">' +
+        '<span class="crop-row-num">🌿 พืชชนิดที่ ' + n + '</span>' +
+        '<button type="button" class="crop-row-remove" onclick="removeCropRow(' + n + ')">✕ ลบ</button>' +
+      '</div>' +
+      '<div class="field-group">' +
+        '<label class="field-label">ประเภทพืชหลัก</label>' +
+        '<div class="tag-group">' + checkboxHtml + '</div>' +
+      '</div>' +
+      '<div class="field-row single"><div class="field">' +
+        '<label>สายพันธุ์ที่ปลูก (คั่นด้วยจุลภาค)</label>' +
+        '<div class="variety-wrap">' +
+          '<input type="text" name="variety_' + n + '" id="varietyInput_' + n + '" class="variety-input" placeholder="เช่น หมอนทอง, ชะนี" autocomplete="off" oninput="filterVarietyRow(this,' + n + ')" onblur="setTimeout(function(){closeVarietyRow(' + n + ')},200)">' +
+          '<div class="variety-suggest" id="varietySuggest_' + n + '"></div>' +
+        '</div>' +
+      '</div></div>' +
+      '<div class="field-row">' +
+        '<div class="field"><label>อายุต้น (ปี)</label><input type="number" name="plant_age_' + n + '" placeholder="เช่น 5" min="0"></div>' +
+        '<div class="field"><label>จำนวนต้น</label><input type="number" name="tree_count_' + n + '" placeholder="เช่น 20" min="0"></div>' +
+        '<div class="field"><label>ผลผลิต/รอบ</label><input type="text" name="yield_avg_' + n + '" placeholder="เช่น 200 กก./ไร่"></div>' +
+      '</div>' +
+      '<div class="field-group">' +
+        '<label class="field-label">ช่วงเดือนเก็บเกี่ยว</label>' +
+        '<div class="season-row tag-group">' + monthHtml + '</div>' +
+      '</div>';
+
+    document.getElementById('cropRowsContainer').appendChild(div);
+    if (cropRowCount >= MAX_CROPS) {
+      document.getElementById('addCropBtn').style.display = 'none';
+    }
+  }
+
+  function removeCropRow(n) {
+    var row = document.getElementById('cropRow_' + n);
+    if (row) row.remove();
+    cropRowCount--;
+    document.getElementById('addCropBtn').style.display = 'inline-flex';
+  }
+
+  // variety search per row
+  function filterVarietyRow(input, rowNum) {
+    var val = input.value;
+    var box = document.getElementById('varietySuggest_' + rowNum);
+    if (!box || !val) { if(box) box.classList.remove('open'); return; }
+    var parts = val.split(',');
+    var last = parts[parts.length-1].trim();
+    if (!last) { box.classList.remove('open'); return; }
+    var matches = VARIETIES.filter(function(v) { return v.includes(last); }).slice(0, 8);
+    if (!matches.length) { box.classList.remove('open'); return; }
+    box.innerHTML = matches.map(function(m) {
+      return '<div style="padding:9px 14px;font-size:13px;cursor:pointer;border-bottom:0.5px solid #eee" onclick="selectVarietyRow('' + rowNum + '','' + m + '')">' + m + '</div>';
+    }).join('');
+    box.classList.add('open');
+  }
+
+  function selectVarietyRow(rowNum, val) {
+    var inp = document.getElementById('varietyInput_' + rowNum);
+    var parts = inp.value.split(',').map(function(s){return s.trim();});
+    parts[parts.length-1] = val;
+    inp.value = parts.join(', ');
+    closeVarietyRow(rowNum);
+  }
+
+  function closeVarietyRow(rowNum) {
+    var box = document.getElementById('varietySuggest_' + rowNum);
+    if (box) box.classList.remove('open');
+  }
+
+  // ── Collect multi-crop data ─────────────────────────
+  function collectCropData() {
+    var results = [];
+    for (var i = 1; i <= MAX_CROPS; i++) {
+      var row = document.getElementById('cropRow_' + i);
+      if (!row) continue;
+      var variety = (document.querySelector('[name="variety_' + i + '"]') || {}).value || '';
+      if (!variety) continue; // ข้ามแถวที่ไม่ได้กรอก
+      var cropType = getCheckboxValues('crop_type_' + i);
+      var harvestMonth = getCheckboxValues('harvest_month_' + i);
+      var plantAge = (document.querySelector('[name="plant_age_' + i + '"]') || {}).value || '';
+      var treeCount = (document.querySelector('[name="tree_count_' + i + '"]') || {}).value || '';
+      var yieldAvg = (document.querySelector('[name="yield_avg_' + i + '"]') || {}).value || '';
+      results.push(cropType + ':' + variety + ':' + plantAge + 'ปี:' + treeCount + 'ต้น:' + yieldAvg + ':' + harvestMonth);
+    }
+    return results.join(' | ');
+  }
+
   function selectPdpa(which) {
     var agreeLabel = document.getElementById('pdpa-agree-label');
     var disagreeLabel = document.getElementById('pdpa-disagree-label');
@@ -1857,11 +2026,12 @@
       demo_rai: f('demo_rai'), demo_ngan: f('demo_ngan'), demo_wa: f('demo_wa'),
       water_source: f('water_source'), watering_method: f('watering_method'),
       soil_type: getCheckboxValues('soil_type'),
-      crop_type: getCheckboxValues('crop_type'),
-      variety: f('variety'), plant_age: f('plant_age'), tree_count: f('tree_count'),
-      cycles_per_year: f('cycles_per_year'), yield_avg: f('yield_avg'),
-      market_channel: f('market_channel'), selling_price: f('selling_price'),
-      harvest_month: getCheckboxValues('harvest_month'),
+      crop_type: collectCropData(),
+      variety: '-',
+      plant_age: '-', tree_count: '-',
+      cycles_per_year: '-', yield_avg: '-',
+      market_channel: f('market_channel'), selling_price: '-',
+      harvest_month: '-',
       fertilizer_type: f('fertilizer_type'), fertilizer_amount: f('fertilizer_amount'),
       fertilizer_cost: f('fertilizer_cost'), organic_exp: f('organic_exp'),
       problems: getCheckboxValues('problems'), problem_detail: f('problem_detail'),
