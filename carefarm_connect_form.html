@@ -1093,15 +1093,23 @@
           <div class="field">
             <label>แผนก / ฝ่าย<span class="req">*</span></label>
             <select name="department" required>
-              <option value="">— เลือกแผนก —</option>
-              <option>ฝ่ายขาย</option>
-              <option>ฝ่ายปฏิบัติการ</option>
-              <option>ฝ่ายการเงิน</option>
-              <option>ฝ่ายบุคคล (HR)</option>
-              <option>ฝ่าย IT</option>
+              <option value="">— เลือกแผนก / ฝ่าย —</option>
+              <option>ฝ่ายบริหาร</option>
+              <option>ฝ่ายขายออนไลน์</option>
+              <option>ฝ่ายบัญชี-การเงิน</option>
+              <option>ฝ่ายทรัพยากรบุคคล</option>
+              <option>ฝ่าย Support (MIS)</option>
               <option>ฝ่ายการตลาด</option>
-              <option>อื่นๆ</option>
+              <option>ฝ่ายขาย (Chain)</option>
+              <option>ฝ่ายจัดซื้อ</option>
+              <option>ฝ่ายขายลูกค้าทั่วไป</option>
+              <option>ฝ่ายขายต่างประเทศ</option>
+              <option>ฝ่าย ICT</option>
+              <option>ฝ่ายคลังสินค้า</option>
+              <option>ฝ่ายออกแบบ</option>
+              <option value="other">อื่นๆ (ระบุด้านล่าง)</option>
             </select>
+            <input type="text" id="dept_other" name="dept_other" placeholder="ระบุชื่อฝ่าย / แผนก" style="display:none;margin-top:8px">
           </div>
           <div class="field">
             <label>เบอร์โทรพนักงาน<span class="req">*</span></label>
@@ -1715,6 +1723,18 @@
   }
 
   // ── PDPA ──
+  // แสดงช่องอื่นๆ เมื่อเลือก "อื่นๆ"
+  document.addEventListener('DOMContentLoaded', function() {
+    var dept = document.querySelector('[name="department"]');
+    var deptOther = document.getElementById('dept_other');
+    if (dept && deptOther) {
+      dept.addEventListener('change', function() {
+        deptOther.style.display = this.value === 'other' ? 'block' : 'none';
+        deptOther.required = this.value === 'other';
+      });
+    }
+  });
+
   function selectPdpa(which) {
     var agreeLabel = document.getElementById('pdpa-agree-label');
     var disagreeLabel = document.getElementById('pdpa-disagree-label');
