@@ -1761,10 +1761,12 @@
     if (!box || !val) { if(box) box.classList.remove('open'); return; }
     const matches = VARIETIES.filter(v => v.includes(val)).slice(0, 8);
     if (!matches.length) { box.classList.remove('open'); return; }
-    box.innerHTML = matches.map(function(m) {
-      return '<div style="padding:9px 14px;font-size:13px;cursor:pointer;color:#1a1a18;border-bottom:0.5px solid #d8e8d4">' + m + '</div>';
-    }).join('');
-    Array.from(box.querySelectorAll('div')).forEach(function(el) {
+    var html2 = '';
+    matches.forEach(function(m) {
+      html2 += '<div class="vsug-item">' + m + '</div>';
+    });
+    box.innerHTML = html2;
+    Array.from(box.querySelectorAll('.vsug-item')).forEach(function(el) {
       el.addEventListener('click', function() { selectVariety(this.textContent.trim()); });
     });
     box.classList.add('open');
@@ -1818,31 +1820,90 @@
     var div = document.createElement('div');
     div.className = 'crop-row';
     div.id = 'cropRow_' + n;
-    div.innerHTML =
-      '<div class="crop-row-header">' +
-        '<span class="crop-row-num">🌿 พืชชนิดที่ ' + n + '</span>' +
-        '<button type="button" class="crop-row-remove" onclick="removeCropRow(' + n + ')">✕ ลบ</button>' +
-      '</div>' +
-      '<div class="field-group">' +
-        '<label class="field-label">ประเภทพืชหลัก</label>' +
-        '<div class="tag-group">' + checkboxHtml + '</div>' +
-      '</div>' +
-      '<div class="field-row single"><div class="field">' +
-        '<label>สายพันธุ์ที่ปลูก (คั่นด้วยจุลภาค)</label>' +
-        '<div class="variety-wrap">' +
-          '<input type="text" name="variety_' + n + '" id="varietyInput_' + n + '" class="variety-input" placeholder="เช่น หมอนทอง, ชะนี" autocomplete="off" oninput="filterVarietyRow(this,' + n + ')" onblur="setTimeout(function(){closeVarietyRow(' + n + ')},200)">' +
-          '<div class="variety-suggest" id="varietySuggest_' + n + '"></div>' +
-        '</div>' +
-      '</div></div>' +
-      '<div class="field-row">' +
-        '<div class="field"><label>อายุต้น (ปี)</label><input type="number" name="plant_age_' + n + '" placeholder="เช่น 5" min="0"></div>' +
-        '<div class="field"><label>จำนวนต้น</label><input type="number" name="tree_count_' + n + '" placeholder="เช่น 20" min="0"></div>' +
-        '<div class="field"><label>ผลผลิต/รอบ</label><input type="text" name="yield_avg_' + n + '" placeholder="เช่น 200 กก./ไร่"></div>' +
-      '</div>' +
-      '<div class="field-group">' +
-        '<label class="field-label">ช่วงเดือนเก็บเกี่ยว</label>' +
-        '<div class="season-row tag-group">' + monthHtml + '</div>' +
-      '</div>';
+    // สร้าง header
+    var header = document.createElement('div');
+    header.className = 'crop-row-header';
+    var numSpan = document.createElement('span');
+    numSpan.className = 'crop-row-num';
+    numSpan.textContent = '🌿 พืชชนิดที่ ' + n;
+    var removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'crop-row-remove';
+    removeBtn.textContent = '✕ ลบ';
+    removeBtn.addEventListener('click', function() { removeCropRow(n); });
+    header.appendChild(numSpan);
+    header.appendChild(removeBtn);
+    div.appendChild(header);
+
+    // checkbox พืช
+    var cropGroup = document.createElement('div');
+    cropGroup.className = 'field-group';
+    var cropLabel = document.createElement('label');
+    cropLabel.className = 'field-label';
+    cropLabel.textContent = 'ประเภทพืชหลัก';
+    var tagDiv = document.createElement('div');
+    tagDiv.className = 'tag-group';
+    tagDiv.innerHTML = checkboxHtml;
+    cropGroup.appendChild(cropLabel);
+    cropGroup.appendChild(tagDiv);
+    div.appendChild(cropGroup);
+
+    // สายพันธุ์
+    var varRow = document.createElement('div');
+    varRow.className = 'field-row single';
+    var varField = document.createElement('div');
+    varField.className = 'field';
+    var varLabel = document.createElement('label');
+    varLabel.textContent = 'สายพันธุ์ที่ปลูก (คั่นด้วยจุลภาค)';
+    var varWrap = document.createElement('div');
+    varWrap.className = 'variety-wrap';
+    var varInput = document.createElement('input');
+    varInput.type = 'text';
+    varInput.name = 'variety_' + n;
+    varInput.id = 'varietyInput_' + n;
+    varInput.className = 'variety-input';
+    varInput.placeholder = 'เช่น หมอนทอง, ชะนี';
+    varInput.autocomplete = 'off';
+    (function(rowN) {
+      varInput.addEventListener('input', function() { filterVarietyRow(this, rowN); });
+      varInput.addEventListener('blur', function() { setTimeout(function() { closeVarietyRow(rowN); }, 200); });
+    })(n);
+    var varSuggest = document.createElement('div');
+    varSuggest.className = 'variety-suggest';
+    varSuggest.id = 'varietySuggest_' + n;
+    varWrap.appendChild(varInput);
+    varWrap.appendChild(varSuggest);
+    varField.appendChild(varLabel);
+    varField.appendChild(varWrap);
+    varRow.appendChild(varField);
+    div.appendChild(varRow);
+
+    // อายุ จำนวน ผลผลิต
+    var detailRow = document.createElement('div');
+    detailRow.className = 'field-row';
+    [['plant_age_'+n,'อายุต้น (ปี)','number','เช่น 5'],
+     ['tree_count_'+n,'จำนวนต้น','number','เช่น 20'],
+     ['yield_avg_'+n,'ผลผลิต/รอบ','text','เช่น 200 กก./ไร่']
+    ].forEach(function(fd) {
+      var f = document.createElement('div'); f.className = 'field';
+      var l = document.createElement('label'); l.textContent = fd[1];
+      var inp = document.createElement('input'); inp.type = fd[2]; inp.name = fd[0]; inp.placeholder = fd[3];
+      f.appendChild(l); f.appendChild(inp); detailRow.appendChild(f);
+    });
+    div.appendChild(detailRow);
+
+    // เดือนเก็บเกี่ยว
+    var mGroup = document.createElement('div');
+    mGroup.className = 'field-group';
+    var mLabel = document.createElement('label');
+    mLabel.className = 'field-label';
+    mLabel.textContent = 'ช่วงเดือนเก็บเกี่ยว';
+    var mDiv = document.createElement('div');
+    mDiv.className = 'season-row tag-group';
+    mDiv.innerHTML = monthHtml;
+    mGroup.appendChild(mLabel);
+    mGroup.appendChild(mDiv);
+    div.appendChild(mGroup);
 
     document.getElementById('cropRowsContainer').appendChild(div);
     if (cropRowCount >= MAX_CROPS) {
@@ -1867,9 +1928,16 @@
     if (!last) { box.classList.remove('open'); return; }
     var matches = VARIETIES.filter(function(v) { return v.includes(last); }).slice(0, 8);
     if (!matches.length) { box.classList.remove('open'); return; }
-    box.innerHTML = matches.map(function(m) {
-      return '<div style="padding:9px 14px;font-size:13px;cursor:pointer;border-bottom:0.5px solid #eee" onclick="selectVarietyRow('' + rowNum + '','' + m + '')">' + m + '</div>';
-    }).join('');
+    var html3 = '';
+    matches.forEach(function(m) {
+      html3 += '<div class="vsug-item2">' + m + '</div>';
+    });
+    box.innerHTML = html3;
+    Array.from(box.querySelectorAll('.vsug-item2')).forEach(function(el) {
+      el.addEventListener('click', function() {
+        selectVarietyRow(rowNum, this.textContent.trim());
+      });
+    });
     box.classList.add('open');
   }
 
