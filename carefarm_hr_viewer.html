@@ -596,6 +596,47 @@
     return s;
   }
 
+  // ── Render crop data (รองรับหลายชนิด) ─────────────
+  function renderCropData(cropRaw) {
+    if (!cropRaw || cropRaw === '-') {
+      return '<div style="color:var(--txt3);font-size:13px">—</div>';
+    }
+
+    // ถ้ามี | แสดงว่ามีหลายชนิด
+    var crops = String(cropRaw).split('|').map(function(c) { return c.trim(); }).filter(Boolean);
+
+    if (crops.length === 1 && !crops[0].includes(':')) {
+      // ข้อมูลเก่า — แสดงแบบ tags ปกติ
+      return '<div class="field-item"><div class="field-lbl">ประเภทพืชหลัก</div><div class="tag-display">' + tags(crops[0]) + '</div></div>';
+    }
+
+    // ข้อมูลใหม่ — แสดงแต่ละชนิดแยกกัน
+    var html = '';
+    crops.forEach(function(crop, idx) {
+      var parts = crop.split(':');
+      var cropType    = parts[0] || '—';
+      var variety     = parts[1] || '—';
+      var plantAge    = parts[2] || '—';
+      var treeCount   = parts[3] || '—';
+      var yieldAvg    = parts[4] || '—';
+      var harvestMonth = parts[5] || '—';
+
+      html += '<div style="background:var(--g5);border:1px solid var(--g4);border-radius:10px;padding:10px 14px;margin-bottom:10px">';
+      html += '<div style="font-size:12px;font-weight:600;color:var(--g1);margin-bottom:8px">🌿 พืชชนิดที่ ' + (idx+1) + ' — ' + cropType + '</div>';
+      html += '<div class="field-grid">';
+      html += '<div class="field-item"><div class="field-lbl">สายพันธุ์</div><div class="field-val">' + variety + '</div></div>';
+      html += '<div class="field-item"><div class="field-lbl">อายุต้น</div><div class="field-val">' + plantAge + '</div></div>';
+      html += '<div class="field-item"><div class="field-lbl">จำนวนต้น</div><div class="field-val">' + treeCount + '</div></div>';
+      html += '</div>';
+      html += '<div class="field-grid col2" style="margin-top:6px">';
+      html += '<div class="field-item"><div class="field-lbl">ผลผลิต/รอบ</div><div class="field-val">' + yieldAvg + '</div></div>';
+      html += '<div class="field-item"><div class="field-lbl">ช่วงเก็บเกี่ยว</div><div class="tag-display">' + tags(harvestMonth) + '</div></div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    return html;
+  }
+
   // ── Format date helper ───────────────────────────────────
   function formatDate(raw) {
     if (!raw) return '—';
@@ -694,26 +735,9 @@
         <div class="doc-section-title">ข้อมูลพืชที่ปลูก</div>
       </div>
       <div class="doc-section-body">
-        <div class="field-item" style="margin-bottom:10px">
-          <div class="field-lbl">ประเภทพืชหลัก</div>
-          <div class="tag-display">${tags(d.crop_type)}</div>
-        </div>
-        <div class="field-grid">
-          ${fld('สายพันธุ์ที่ปลูก', d.variety)}
-          ${fld('อายุต้น / ปีที่ทำเกษตร (ปี)', d.plant_age)}
-          ${fld('จำนวนต้น (สำหรับไม้ผล)', d.tree_count)}
-        </div>
-        <div class="field-grid">
-          ${fld('รอบการผลิตต่อปี', d.cycles_per_year)}
-          ${fld('ผลผลิตเฉลี่ยต่อรอบ', d.yield_avg)}
-          ${fld('แหล่งจำหน่ายผลผลิต', d.market_channel)}
-        </div>
-        <div class="field-grid col2">
-          <div class="field-item">
-            <div class="field-lbl">ช่วงเดือนเก็บเกี่ยว / เก็บผลผลิต</div>
-            <div class="tag-display">${tags(d.harvest_month)}</div>
-          </div>
-          ${fld('ราคาขายผลผลิตเฉลี่ย', d.selling_price)}
+        ${renderCropData(d.crop_type)}
+        <div class="field-grid col2" style="margin-top:10px">
+          ${fld('แหล่งจำหน่ายผลผลิตหลัก', d.market_channel)}
         </div>
       </div>
     </div>
