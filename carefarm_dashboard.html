@@ -7,32 +7,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{--g1:#0a4a2e;--g2:#1a7a4a;--g3:#2db56e;--g4:#d4f0e2;--g5:#f0faf5;--amber:#e8a23a;--amber-d:#b5710f;--amber-l:#fff8e8;--blue:#1a6fa8;--blue-l:#e8f4fd;--red:#b83232;--bg:#f2f5f2;--card:#ffffff;--txt1:#1a1a18;--txt2:#4a5548;--txt3:#8a9a88;--border:#dde8d8;--shadow:0 2px 12px rgba(10,74,46,0.08);}
+:root{--g1:#0a4a2e;--g2:#1a7a4a;--g3:#2db56e;--g4:#d4f0e2;--g5:#f0faf5;--amber:#e8a23a;--amber-d:#b5710f;--blue:#1a6fa8;--red:#b83232;--purple:#7c3aed;--bg:#f2f5f2;--card:#ffffff;--txt1:#1a1a18;--txt2:#4a5548;--txt3:#8a9a88;--border:#dde8d8;--shadow:0 2px 12px rgba(10,74,46,0.08);}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--txt1);min-height:100vh;}
+body{font-family:"Sarabun",sans-serif;background:var(--bg);color:var(--txt1);min-height:100vh;}
 .topbar{background:var(--g1);height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--g2);}
 .tb-left{display:flex;align-items:center;gap:16px;}
-.tb-logo{font-family:'Noto Serif Thai',serif;font-size:20px;font-weight:700;color:#fff;}
+.tb-logo{font-family:"Noto Serif Thai",serif;font-size:20px;font-weight:700;color:#fff;}
 .tb-logo span{color:var(--g3);}
 .tb-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--g3);background:rgba(45,181,110,0.15);border:1px solid rgba(45,181,110,0.3);border-radius:20px;padding:3px 12px;}
 .tb-right{display:flex;align-items:center;gap:16px;}
-.live-wrap{display:flex;align-items:center;gap:6px;}
 .live-dot{width:8px;height:8px;border-radius:50%;background:var(--g3);box-shadow:0 0 0 3px rgba(45,181,110,0.2);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(45,181,110,0.2)}50%{box-shadow:0 0 0 7px rgba(45,181,110,0.05)}}
 .live-txt{font-size:12px;color:rgba(255,255,255,0.6);}
 .live-txt strong{color:rgba(255,255,255,0.9);}
-.btn-refresh{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);font-family:'Sarabun',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-refresh{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);font-family:"Sarabun",sans-serif;font-size:12px;cursor:pointer;}
 .btn-refresh:hover{background:rgba(255,255,255,0.18);color:#fff;}
-.dash{max-width:1280px;margin:0 auto;padding:1.75rem 1.5rem 3rem;}
+.dash{max-width:1300px;margin:0 auto;padding:1.75rem 1.5rem 3rem;}
 .setup-wrap{background:var(--card);border-radius:16px;border:1.5px dashed var(--g3);padding:2rem 2.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
 .setup-wrap.hidden{display:none;}
-.setup-icon{font-size:36px;flex-shrink:0;}
 .setup-body{flex:1;min-width:240px;}
 .setup-body h3{font-size:16px;font-weight:600;color:var(--g1);margin-bottom:5px;}
 .setup-body p{font-size:13px;color:var(--txt3);margin-bottom:12px;}
-.setup-input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Sarabun',sans-serif;font-size:13px;background:var(--bg);outline:none;transition:border-color 0.2s;}
+.setup-input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:"Sarabun",sans-serif;font-size:13px;background:var(--bg);outline:none;}
 .setup-input:focus{border-color:var(--g3);background:#fff;}
-.btn-load{padding:11px 28px;border-radius:50px;background:var(--g2);color:#fff;border:none;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.2s;white-space:nowrap;flex-shrink:0;}
+.btn-load{padding:11px 28px;border-radius:50px;background:var(--g2);color:#fff;border:none;font-family:"Sarabun",sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .btn-load:hover{background:var(--g1);}
 .loading-wrap{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:4rem;text-align:center;display:none;}
 .loading-wrap.show{display:block;}
@@ -40,38 +38,39 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--txt1);min
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:14px;color:var(--txt3);}
 .sec-label{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--txt3);text-transform:uppercase;margin:2rem 0 1rem;}
-.sec-label::before{content:'';width:3px;height:14px;background:var(--g3);border-radius:2px;}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-.kpi{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:1.25rem 1.4rem;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;}
+.sec-label::before{content:"";width:3px;height:14px;background:var(--g3);border-radius:2px;}
+.sec-label::after{content:"";flex:1;height:1px;background:var(--border);}
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:0.5rem;}
+.kpi{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:1.1rem 1.25rem;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;}
 .kpi:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(10,74,46,0.12);}
 .kpi-stripe{position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:14px 0 0 14px;}
-.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-.kpi-icon{font-size:20px;line-height:1;}
-.kpi-trend{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:#e8f8ee;color:var(--g2);}
-.kpi-val{font-family:'Noto Serif Thai',serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:4px;color:var(--txt1);}
-.kpi-lbl{font-size:12px;color:var(--txt3);font-weight:500;}
-.kpi-sub{font-size:11px;color:var(--g2);font-weight:500;margin-top:6px;}
+.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
+.kpi-icon{font-size:20px;}
+.kpi-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:#e8f8ee;color:var(--g2);}
+.kpi-val{font-family:"Noto Serif Thai",serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px;}
+.kpi-lbl{font-size:11px;color:var(--txt3);font-weight:500;}
+.kpi-sub{font-size:11px;color:var(--g2);font-weight:500;margin-top:5px;}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
 .ccard{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:1.5rem;box-shadow:var(--shadow);}
-.ccard-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.ccard-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
 .ccard-title{font-size:14px;font-weight:600;color:var(--txt1);display:flex;align-items:center;gap:8px;}
-.ccard-title .cdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.cdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
 .ccard-sub{font-size:11px;color:var(--txt3);}
-.prov-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.prov-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.prow{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.prank{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
 .r1{background:#FFD700;color:#7a5c00;}.r2{background:#C0C0C0;color:#444;}.r3{background:#CD7F32;color:#5a3010;}.rn{background:var(--bg);color:var(--txt3);}
-.prov-name{font-size:13px;color:var(--txt2);width:100px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.prov-bar-wrap{flex:1;height:10px;background:var(--g5);border-radius:20px;overflow:hidden;}
-.prov-bar{height:100%;border-radius:20px;transition:width 1s ease;}
-.prov-count{font-size:12px;color:var(--txt3);width:28px;text-align:right;flex-shrink:0;}
-.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1rem;}
-.insight{background:var(--g5);border:1px solid var(--g4);border-radius:12px;padding:1rem;}
-.insight-icon{font-size:18px;margin-bottom:6px;}
-.insight-val{font-family:'Noto Serif Thai',serif;font-size:20px;font-weight:700;color:var(--g1);}
-.insight-lbl{font-size:11px;color:var(--txt3);margin-top:2px;}
-@media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr);}.grid-2{grid-template-columns:1fr;}.insight-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:480px){.kpi-row{grid-template-columns:1fr 1fr;}.kpi-val{font-size:26px;}.topbar{padding:0 1rem;}.dash{padding:1rem;}.tb-tag{display:none;}}
+.plabel{font-size:12px;color:var(--txt2);width:90px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pbar-wrap{flex:1;height:9px;background:var(--g5);border-radius:20px;overflow:hidden;}
+.pbar{height:100%;border-radius:20px;transition:width 1s ease;}
+.pcount{font-size:12px;color:var(--txt3);width:28px;text-align:right;flex-shrink:0;}
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1rem;}
+.ibox{background:var(--g5);border:1px solid var(--g4);border-radius:10px;padding:0.9rem;}
+.ibox-icon{font-size:16px;margin-bottom:4px;}
+.ibox-val{font-family:"Noto Serif Thai",serif;font-size:18px;font-weight:700;color:var(--g1);}
+.ibox-lbl{font-size:10px;color:var(--txt3);margin-top:2px;}
+@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr);}.grid-3{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){.kpi-row{grid-template-columns:repeat(2,1fr);}.grid-2,.grid-3{grid-template-columns:1fr;}.igrid{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
 <body>
@@ -81,267 +80,289 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--txt1);min
     <div class="tb-tag">CEO DASHBOARD</div>
   </div>
   <div class="tb-right">
-    <div class="live-wrap">
+    <div style="display:flex;align-items:center;gap:6px">
       <div class="live-dot"></div>
-      <div class="live-txt">อัปเดตล่าสุด <strong id="lastUpdate">—</strong></div>
+      <div class="live-txt">อัปเดตล่าสุด <strong id="lastUpdate">--</strong></div>
     </div>
-    <button class="btn-refresh" onclick="loadData()">↻ รีเฟรช</button>
+    <button class="btn-refresh" onclick="loadData()">&#8635; รีเฟรช</button>
   </div>
 </div>
-
 <div class="dash">
   <div class="setup-wrap" id="setupCard">
-    <div class="setup-icon">🔗</div>
+    <div style="font-size:36px;flex-shrink:0">&#128279;</div>
     <div class="setup-body">
       <h3>เชื่อมต่อข้อมูล</h3>
-      <p>วาง Apps Script URL เดียวกับที่ใช้ใน HR Viewer</p>
-      <input class="setup-input" id="scriptUrlInput" type="text"
-        placeholder="https://script.google.com/macros/s/..."
-        value="https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec">
+      <p>วาง Apps Script URL</p>
+      <input class="setup-input" id="scriptUrlInput" type="text" value="https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec">
     </div>
-    <button class="btn-load" onclick="loadData()">📊 โหลด Dashboard</button>
+    <button class="btn-load" onclick="loadData()">&#128202; โหลด Dashboard</button>
   </div>
-
   <div class="loading-wrap" id="loadingWrap">
     <div class="spin"></div>
-    <div class="loading-txt" id="loadingTxt">กำลังดึงข้อมูลจาก Google Sheets...</div>
+    <div class="loading-txt" id="loadingTxt">กำลังดึงข้อมูล...</div>
   </div>
-
   <div id="dashContent" style="display:none">
-
-    <div class="sec-label">Impact — ภาพรวมโครงการ</div>
+    <div class="sec-label">1 — จำนวนผู้สมัคร</div>
     <div class="kpi-row">
-      <div class="kpi">
-        <div class="kpi-stripe" style="background:var(--g2)"></div>
-        <div class="kpi-top"><div class="kpi-icon">📋</div><div class="kpi-trend" id="kpi-today-badge">+0 วันนี้</div></div>
-        <div class="kpi-val" id="kpi-total">—</div>
-        <div class="kpi-lbl">ใบสมัครทั้งหมด</div>
-        <div class="kpi-sub" id="kpi-week">สัปดาห์นี้ +0 ราย</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-stripe" style="background:var(--blue)"></div>
-        <div class="kpi-top"><div class="kpi-icon">📍</div></div>
-        <div class="kpi-val" id="kpi-provinces">—</div>
-        <div class="kpi-lbl">จังหวัดที่เข้าร่วม</div>
-        <div class="kpi-sub" id="kpi-districts">— อำเภอ · — ตำบล</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-stripe" style="background:var(--amber)"></div>
-        <div class="kpi-top"><div class="kpi-icon">🌾</div></div>
-        <div class="kpi-val" id="kpi-area">—</div>
-        <div class="kpi-lbl">พื้นที่รวม (ไร่)</div>
-        <div class="kpi-sub" id="kpi-demo">แปลงสาธิต — ไร่</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-stripe" style="background:var(--red)"></div>
-        <div class="kpi-top"><div class="kpi-icon">💰</div></div>
-        <div class="kpi-val" id="kpi-saving">—</div>
-        <div class="kpi-lbl">ประหยัดปุ๋ยได้ (บาท/ปี)</div>
-        <div class="kpi-sub">ประมาณการลดลง 30%</div>
-      </div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--g2)"></div><div class="kpi-top"><div class="kpi-icon">&#128203;</div><div class="kpi-badge" id="k-today">+0 วันนี้</div></div><div class="kpi-val" id="k-total">--</div><div class="kpi-lbl">ใบสมัครทั้งหมด</div><div class="kpi-sub" id="k-week">สัปดาห์นี้ +0</div></div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--blue)"></div><div class="kpi-top"><div class="kpi-icon">&#128205;</div></div><div class="kpi-val" id="k-prov">--</div><div class="kpi-lbl">จังหวัดที่เข้าร่วม</div><div class="kpi-sub" id="k-dist">-- อำเภอ · -- ตำบล</div></div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--amber)"></div><div class="kpi-top"><div class="kpi-icon">&#127806;</div></div><div class="kpi-val" id="k-area">--</div><div class="kpi-lbl">พื้นที่รวม (ไร่)</div><div class="kpi-sub" id="k-demo">สาธิต -- ไร่</div></div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--g3)"></div><div class="kpi-top"><div class="kpi-icon">&#127807;</div></div><div class="kpi-val" id="k-crops">--</div><div class="kpi-lbl">ประเภทพืช</div><div class="kpi-sub" id="k-topcrop">อันดับ 1: --</div></div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--red)"></div><div class="kpi-top"><div class="kpi-icon">&#128176;</div></div><div class="kpi-val" id="k-saving">--</div><div class="kpi-lbl">ประหยัดปุ๋ยได้ (บาท/ปี)</div><div class="kpi-sub">ประมาณการ 30%</div></div>
+      <div class="kpi"><div class="kpi-stripe" style="background:var(--purple)"></div><div class="kpi-top"><div class="kpi-icon">&#9989;</div></div><div class="kpi-val" id="k-ready">--</div><div class="kpi-lbl">พร้อมรับทีมลงพื้นที่</div><div class="kpi-sub" id="k-ready-sub">-- ราย</div></div>
     </div>
-
-    <div class="sec-label">Where — การกระจายตัวทางภูมิศาสตร์</div>
+    <div class="sec-label">2 — การกระจายตัวทางภูมิศาสตร์</div>
     <div class="grid-2">
       <div class="ccard">
-        <div class="ccard-header">
-          <div class="ccard-title"><span class="cdot" style="background:var(--blue)"></span>Top จังหวัดที่สมัครมากสุด</div>
-          <div class="ccard-sub" id="prov-total-label">—</div>
-        </div>
-        <div id="provinceBars"></div>
-        <div class="insight-grid">
-          <div class="insight"><div class="insight-icon">🥇</div><div class="insight-val" id="top-province">—</div><div class="insight-lbl">จังหวัดอันดับ 1</div></div>
-          <div class="insight"><div class="insight-icon">🗺️</div><div class="insight-val" id="top-region">—</div><div class="insight-lbl">ภาคที่มีมากสุด</div></div>
-          <div class="insight"><div class="insight-icon">📍</div><div class="insight-val" id="top-district">—</div><div class="insight-lbl">อำเภออันดับ 1</div></div>
-        </div>
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--blue)"></span>Top จังหวัด</div><div class="ccard-sub" id="prov-count">--</div></div>
+        <div id="provBars"></div>
+        <div class="igrid"><div class="ibox"><div class="ibox-icon">&#127937;</div><div class="ibox-val" id="top-prov">--</div><div class="ibox-lbl">จังหวัดอันดับ 1</div></div><div class="ibox"><div class="ibox-icon">&#128506;</div><div class="ibox-val" id="top-region">--</div><div class="ibox-lbl">ภาคที่มีมากสุด</div></div><div class="ibox"><div class="ibox-icon">&#128205;</div><div class="ibox-val" id="top-dist">--</div><div class="ibox-lbl">อำเภออันดับ 1</div></div></div>
       </div>
       <div class="ccard">
-        <div class="ccard-header">
-          <div class="ccard-title"><span class="cdot" style="background:var(--g3)"></span>แนวโน้มการสมัครรายวัน</div>
-          <div class="ccard-sub" id="timeline-range">—</div>
-        </div>
-        <canvas id="timelineChart" height="220"></canvas>
-        <div class="insight-grid" style="margin-top:1rem">
-          <div class="insight"><div class="insight-icon">📅</div><div class="insight-val" id="peak-day">—</div><div class="insight-lbl">วันที่สมัครมากสุด</div></div>
-          <div class="insight"><div class="insight-icon">📊</div><div class="insight-val" id="avg-per-day">—</div><div class="insight-lbl">เฉลี่ย/วัน</div></div>
-          <div class="insight"><div class="insight-icon">🔥</div><div class="insight-val" id="active-days">—</div><div class="insight-lbl">วันที่มีการสมัคร</div></div>
-        </div>
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--g3)"></span>แนวโน้มการสมัครรายวัน</div><div class="ccard-sub" id="timeline-range">--</div></div>
+        <canvas id="timelineChart" height="200"></canvas>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#128197;</div><div class="ibox-val" id="peak-day">--</div><div class="ibox-lbl">วันที่สมัครมากสุด</div></div><div class="ibox"><div class="ibox-icon">&#128202;</div><div class="ibox-val" id="avg-day">--</div><div class="ibox-lbl">เฉลี่ย/วัน</div></div><div class="ibox"><div class="ibox-icon">&#128293;</div><div class="ibox-val" id="active-days">--</div><div class="ibox-lbl">วันที่มีการสมัคร</div></div></div>
       </div>
     </div>
-
-    <div class="sec-label">What — ประเภทพืชและฤดูกาล</div>
+    <div class="grid-2" style="margin-top:-4px">
+      <div class="ccard"><div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--blue)"></span>Top 8 อำเภอ</div></div><div id="distBars"></div></div>
+      <div class="ccard"><div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--purple)"></span>Top 8 ตำบล</div></div><div id="subDistBars"></div></div>
+    </div>
+    <div class="sec-label">3 — ประเภทพืชและฤดูกาล</div>
     <div class="grid-2">
       <div class="ccard">
-        <div class="ccard-header">
-          <div class="ccard-title"><span class="cdot" style="background:var(--amber)"></span>ประเภทพืชที่ปลูก</div>
-          <div class="ccard-sub" id="crop-types-count">—</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center">
-          <canvas id="cropChart"></canvas>
-          <div id="cropLegend"></div>
-        </div>
-        <div class="insight-grid" style="margin-top:1rem">
-          <div class="insight"><div class="insight-icon">🌵</div><div class="insight-val" id="top-crop-1">—</div><div class="insight-lbl">อันดับ 1</div></div>
-          <div class="insight"><div class="insight-icon">🌿</div><div class="insight-val" id="top-crop-2">—</div><div class="insight-lbl">อันดับ 2</div></div>
-          <div class="insight"><div class="insight-icon">🌾</div><div class="insight-val" id="top-crop-3">—</div><div class="insight-lbl">อันดับ 3</div></div>
-        </div>
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--amber)"></span>สัดส่วนประเภทพืช</div><div class="ccard-sub" id="crop-count">--</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center"><canvas id="cropChart"></canvas><div id="cropLegend"></div></div>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#127813;</div><div class="ibox-val" id="crop1">--</div><div class="ibox-lbl">อันดับ 1</div></div><div class="ibox"><div class="ibox-icon">&#127807;</div><div class="ibox-val" id="crop2">--</div><div class="ibox-lbl">อันดับ 2</div></div><div class="ibox"><div class="ibox-icon">&#127806;</div><div class="ibox-val" id="crop3">--</div><div class="ibox-lbl">อันดับ 3</div></div></div>
       </div>
       <div class="ccard">
-        <div class="ccard-header">
-          <div class="ccard-title"><span class="cdot" style="background:var(--amber-d)"></span>ช่วงเดือนเก็บเกี่ยวหลัก</div>
-          <div class="ccard-sub">วางแผนลงพื้นที่เก็บข้อมูล Before/After</div>
-        </div>
-        <canvas id="harvestChart" height="220"></canvas>
-        <div class="insight-grid" style="margin-top:1rem">
-          <div class="insight"><div class="insight-icon">📅</div><div class="insight-val" id="peak-month">—</div><div class="insight-lbl">เดือนที่เก็บเกี่ยวมากสุด</div></div>
-          <div class="insight"><div class="insight-icon">🌤️</div><div class="insight-val" id="peak-season">—</div><div class="insight-lbl">ช่วงฤดูหลัก</div></div>
-          <div class="insight"><div class="insight-icon">🗓️</div><div class="insight-val" id="harvest-spread">—</div><div class="insight-lbl">กระจายกี่เดือน</div></div>
-        </div>
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--amber-d)"></span>ช่วงเดือนเก็บเกี่ยวหลัก</div><div class="ccard-sub">วางแผนลงพื้นที่ Before/After</div></div>
+        <canvas id="harvestChart" height="200"></canvas>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#128197;</div><div class="ibox-val" id="peak-month">--</div><div class="ibox-lbl">เดือนที่เก็บมากสุด</div></div><div class="ibox"><div class="ibox-icon">&#127828;</div><div class="ibox-val" id="peak-season">--</div><div class="ibox-lbl">ช่วงฤดูหลัก</div></div><div class="ibox"><div class="ibox-icon">&#128467;</div><div class="ibox-val" id="harvest-spread">--</div><div class="ibox-lbl">กระจายกี่เดือน</div></div></div>
       </div>
     </div>
-
+    <div class="sec-label">4 — ความพร้อมของแปลง</div>
+    <div class="grid-3">
+      <div class="ccard"><div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--g2)"></span>ความพร้อมดูแลแปลง</div></div><canvas id="availChart" height="180"></canvas></div>
+      <div class="ccard"><div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--blue)"></span>การรับทีมลงพื้นที่</div></div><canvas id="siteChart" height="180"></canvas></div>
+      <div class="ccard"><div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--amber)"></span>การส่งภาพ Before/After</div></div><canvas id="photoChart" height="180"></canvas></div>
+    </div>
+    <div class="sec-label">5 — ศักยภาพพื้นที่</div>
+    <div class="grid-2">
+      <div class="ccard">
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--amber)"></span>การกระจายขนาดแปลง (ไร่)</div></div>
+        <canvas id="areaChart" height="200"></canvas>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#127806;</div><div class="ibox-val" id="area-total">--</div><div class="ibox-lbl">พื้นที่รวม (ไร่)</div></div><div class="ibox"><div class="ibox-icon">&#128300;</div><div class="ibox-val" id="area-demo">--</div><div class="ibox-lbl">แปลงสาธิตรวม</div></div><div class="ibox"><div class="ibox-icon">&#128208;</div><div class="ibox-val" id="area-avg">--</div><div class="ibox-lbl">เฉลี่ยต่อราย (ไร่)</div></div></div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--blue)"></span>แหล่งน้ำ</div></div>
+        <div id="waterBars"></div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
+        <div class="ccard-hdr" style="margin-bottom:0.75rem"><div class="ccard-title" style="font-size:13px"><span class="cdot" style="background:var(--amber)"></span>วิธีให้น้ำ</div></div>
+        <div id="irrigBars"></div>
+      </div>
+    </div>
+    <div class="sec-label">6 — ต้นทุนและประมาณการ ROI</div>
+    <div class="grid-2">
+      <div class="ccard">
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--red)"></span>ช่วงค่าใช้จ่ายปุ๋ยต่อรอบ (ก่อนโครงการ)</div></div>
+        <canvas id="costChart" height="200"></canvas>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#128176;</div><div class="ibox-val" id="cost-avg">--</div><div class="ibox-lbl">ค่าปุ๋ยเฉลี่ย (บาท/รอบ)</div></div><div class="ibox"><div class="ibox-icon">&#9986;</div><div class="ibox-val" id="cost-save-per">--</div><div class="ibox-lbl">ประหยัดได้/ราย/ปี (30%)</div></div><div class="ibox"><div class="ibox-icon">&#128200;</div><div class="ibox-val" id="cost-save-total">--</div><div class="ibox-lbl">ประหยัดรวมทั้งโครงการ</div></div></div>
+      </div>
+      <div class="ccard">
+        <div class="ccard-hdr"><div class="ccard-title"><span class="cdot" style="background:var(--g2)"></span>ประสบการณ์ปุ๋ยอินทรีย์</div><div class="ccard-sub">โอกาสเปลี่ยนผ่าน</div></div>
+        <canvas id="organicChart" height="200"></canvas>
+        <div class="igrid" style="margin-top:1rem"><div class="ibox"><div class="ibox-icon">&#127807;</div><div class="ibox-val" id="organic-ready">--</div><div class="ibox-lbl">% พร้อมเปลี่ยนสู่อินทรีย์</div></div><div class="ibox"><div class="ibox-icon">&#128300;</div><div class="ibox-val" id="organic-mixed">--</div><div class="ibox-lbl">% ใช้ผสมอยู่แล้ว</div></div><div class="ibox"><div class="ibox-icon">&#128274;</div><div class="ibox-val" id="organic-new">--</div><div class="ibox-lbl">% ยังไม่เคยใช้อินทรีย์</div></div></div>
+      </div>
+    </div>
   </div>
 </div>
-
 <script>
-const DEFAULT_URL='https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec';
-let allData=[],charts={},refreshTimer=null;
-
-function countField(arr,field){const m={};arr.forEach(r=>{String(r[field]||'').split(',').map(v=>v.trim()).filter(Boolean).forEach(v=>{m[v]=(m[v]||0)+1;});});return m;}
-function topN(map,n){return Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,n);}
-function fmtDate(raw){if(!raw)return'—';try{const d=new Date(raw);if(!isNaN(d))return d.toLocaleDateString('th-TH',{day:'2-digit',month:'2-digit',year:'2-digit'});}catch(e){}return String(raw).substring(0,10);}
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbz32XVZTYhAuq2uqkXC5X9rM9H5_T9fiDMnlm9I3MBJE71Nn_9aF65jfKh9tYk5wFI/exec";
+var allData=[],charts={},refreshTimer=null;
+function countField(arr,field){var map={};arr.forEach(function(r){String(r[field]||"").split(",").map(function(v){return v.trim();}).filter(Boolean).forEach(function(v){map[v]=(map[v]||0)+1;});});return map;}
+function topN(map,n){return Object.entries(map).sort(function(a,b){return b[1]-a[1];}).slice(0,n);}
+function fmtDate(raw){if(!raw)return"--";try{var d=new Date(raw);if(!isNaN(d))return d.toLocaleDateString("th-TH",{day:"2-digit",month:"2-digit",year:"2-digit"});}catch(e){}return String(raw).substring(0,10);}
 function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 function guessRegion(p){
-  if(['เชียงใหม่','เชียงราย','ลำปาง','ลำพูน','แม่ฮ่องสอน','น่าน','พะเยา','แพร่'].some(x=>(p||'').includes(x)))return'เหนือ';
-  if(['ขอนแก่น','อุดรธานี','นครราชสีมา','อุบลราชธานี','สกลนคร','ร้อยเอ็ด','กาฬสินธุ์','มหาสารคาม','เลย','ชัยภูมิ','บุรีรัมย์','สุรินทร์','ศรีสะเกษ','นครพนม','มุกดาหาร','อำนาจเจริญ','หนองบัวลำภู','ยโสธร','บึงกาฬ','หนองคาย'].some(x=>(p||'').includes(x)))return'อีสาน';
-  if(['สุราษฎร์ธานี','นครศรีธรรมราช','สงขลา','ชุมพร','กระบี่','ภูเก็ต','พังงา','ระนอง','ตรัง','พัทลุง','สตูล','ปัตตานี','ยะลา','นราธิวาส'].some(x=>(p||'').includes(x)))return'ใต้';
-  if(['ชลบุรี','ระยอง','จันทบุรี','ตราด','ฉะเชิงเทรา','ปราจีนบุรี','สระแก้ว'].some(x=>(p||'').includes(x)))return'ตะวันออก';
-  if(['กาญจนบุรี','ราชบุรี','เพชรบุรี','ประจวบคีรีขันธ์'].some(x=>(p||'').includes(x)))return'ตะวันตก';
-  return'กลาง';
+  if(["เชียงใหม่","เชียงราย","ลำปาง","ลำพูน","แม่ฮ่องสอน","น่าน","พะเยา","แพร่"].some(function(x){return(p||"").includes(x);}))return"เหนือ";
+  if(["ขอนแก่น","อุดรธานี","นครราชสีมา","อุบลราชธานี","สกลนคร","ร้อยเอ็ด","กาฬสินธุ์","มหาสารคาม","เลย","ชัยภูมิ","บุรีรัมย์","สุรินทร์","ศรีสะเกษ","นครพนม","มุกดาหาร","หนองคาย","บึงกาฬ","หนองบัวลำภู","ยโสธร","อำนาจเจริญ"].some(function(x){return(p||"").includes(x);}))return"อีสาน";
+  if(["สุราษฎร์ธานี","นครศรีธรรมราช","สงขลา","ชุมพร","กระบี่","ภูเก็ต","พังงา","ระนอง","ตรัง","พัทลุง","สตูล","ปัตตานี","ยะลา","นราธิวาส"].some(function(x){return(p||"").includes(x);}))return"ใต้";
+  if(["ชลบุรี","ระยอง","จันทบุรี","ตราด","ฉะเชิงเทรา","ปราจีนบุรี","สระแก้ว"].some(function(x){return(p||"").includes(x);}))return"ตะวันออก";
+  if(["กาญจนบุรี","ราชบุรี","เพชรบุรี","ประจวบคีรีขันธ์"].some(function(x){return(p||"").includes(x);}))return"ตะวันตก";
+  return"กลาง";
 }
-
-function loadData(){
-  const url=(document.getElementById('scriptUrlInput').value||'').trim()||DEFAULT_URL;
-  document.getElementById('setupCard').classList.add('hidden');
-  document.getElementById('loadingWrap').classList.add('show');
-  document.getElementById('dashContent').style.display='none';
-  const old=document.getElementById('_jd');if(old)old.remove();
-  if(refreshTimer)clearTimeout(refreshTimer);
-  const t=setTimeout(()=>{document.getElementById('loadingTxt').innerHTML='⚠️ หมดเวลา กรุณากด รีเฟรช';},15000);
-  window._dashCb=function(json){
-    clearTimeout(t);
-    document.getElementById('loadingWrap').classList.remove('show');
-    if(json&&json.status==='ok'&&json.data){
-      allData=json.data.filter(r=>r.emp_name&&String(r.emp_name).trim());
-      render();
-      const now=new Date();
-      document.getElementById('lastUpdate').textContent=now.toLocaleDateString('th-TH')+' '+now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
-      refreshTimer=setTimeout(loadData,60000);
+function extractCropTypes(arr){
+  var map={};
+  arr.forEach(function(r){
+    var raw=String(r.crop_type||"");
+    if(!raw||raw==="-")return;
+    if(raw.includes("|")||raw.includes(":")){
+      raw.split("|").forEach(function(seg){var parts=seg.trim().split(":");var ct=parts[0].trim();if(ct)map[ct]=(map[ct]||0)+1;});
     }else{
-      document.getElementById('loadingTxt').innerHTML='❌ ไม่พบข้อมูล';
-      document.getElementById('loadingWrap').classList.add('show');
+      raw.split(",").forEach(function(c){var ct=c.trim();if(ct)map[ct]=(map[ct]||0)+1;});
     }
-  };
-  const s=document.createElement('script');s.id='_jd';
-  s.src=url+'?action=getAll&callback=_dashCb';
-  s.onerror=()=>{
-    clearTimeout(t);
-    document.getElementById('loadingTxt').innerHTML=
-      '<div style="color:#b83232;font-size:14px;line-height:2">'+
-      '❌ เชื่อมต่อไม่ได้<br>'+
-      '<span style="color:#4a5548;font-size:13px">'+
-      '💡 วิธีแก้: เปิด Chrome แล้วรัน flag นี้<br>'+
-      '<code style="background:#f4f4f4;padding:4px 8px;border-radius:6px;font-size:11px;display:inline-block;margin-top:4px">'+
-      'chrome --disable-web-security --user-data-dir=/tmp/chrome_dev</code><br>'+
-      'หรืออัปโหลดไฟล์ขึ้น Google Drive แล้วเปิดจากที่นั่น'+
-      '</span></div>';
-  };
-  document.head.appendChild(s);
+  });
+  return map;
 }
+function makeBars(id,data,colors){
+  var max=data[0]?data[0][1]:1;
+  var pc=colors||["#1a6fa8","#2980b9","#5dade2","#7fb3d3","#a8cce5","#c8dff0","#d8e9f5","#eaf3fb"];
+  document.getElementById(id).innerHTML=data.map(function(x,i){
+    return "<div class='prow'><span class='prank "+(i===0?"r1":i===1?"r2":i===2?"r3":"rn")+"'>"+(i+1)+"</span><span class='plabel' title='"+x[0]+"'>"+(x[0]||"ไม่ระบุ")+"</span><div class='pbar-wrap'><div class='pbar' style='width:"+(x[1]/max*100)+"%25;background:"+(pc[i]||pc[pc.length-1])+"'></div></div><span class='pcount'>"+x[1]+"</span></div>";
+  }).join("").replace(/%25/g,"%");
+}
+function loadData(){
+  var url=(document.getElementById("scriptUrlInput").value||"").trim()||SCRIPT_URL;
+  document.getElementById("setupCard").classList.add("hidden");
+  document.getElementById("loadingWrap").classList.add("show");
+  document.getElementById("dashContent").style.display="none";
+  if(refreshTimer)clearTimeout(refreshTimer);
 
+  // ใช้ fetch แทน JSONP
+  fetch(url+"?action=getAll")
+    .then(function(res){return res.json();})
+    .then(function(json){
+      document.getElementById("loadingWrap").classList.remove("show");
+      if(json&&json.status==="ok"&&json.data){
+        allData=json.data.filter(function(r){return r.emp_name&&String(r.emp_name).trim();});
+        render();
+        var now=new Date();
+        document.getElementById("lastUpdate").textContent=now.toLocaleDateString("th-TH")+" "+now.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
+        refreshTimer=setTimeout(loadData,60000);
+      }else{
+        document.getElementById("loadingTxt").innerHTML="&#10060; ไม่พบข้อมูล";
+        document.getElementById("loadingWrap").classList.add("show");
+      }
+    })
+    .catch(function(){
+      document.getElementById("loadingWrap").classList.remove("show");
+      // fallback: JSONP
+      var old=document.getElementById("_jd");if(old)old.remove();
+      var t=setTimeout(function(){document.getElementById("loadingTxt").innerHTML="&#9888; หมดเวลา กรุณากด รีเฟรช";document.getElementById("loadingWrap").classList.add("show");},15000);
+      window._dashCb=function(json){
+        clearTimeout(t);
+        document.getElementById("loadingWrap").classList.remove("show");
+        if(json&&json.status==="ok"&&json.data){
+          allData=json.data.filter(function(r){return r.emp_name&&String(r.emp_name).trim();});
+          render();
+          var now=new Date();
+          document.getElementById("lastUpdate").textContent=now.toLocaleDateString("th-TH")+" "+now.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
+          refreshTimer=setTimeout(loadData,60000);
+        }else{document.getElementById("loadingTxt").innerHTML="&#10060; ไม่พบข้อมูล";document.getElementById("loadingWrap").classList.add("show");}
+      };
+      var s=document.createElement("script");s.id="_jd";
+      s.src=url+"?action=getAll&callback=_dashCb";
+      s.onerror=function(){clearTimeout(t);document.getElementById("loadingTxt").innerHTML="&#10060; เชื่อมต่อไม่ได้";document.getElementById("loadingWrap").classList.add("show");};
+      document.head.appendChild(s);
+    });
+}
 function render(){
-  const d=allData,n=d.length;
-  document.getElementById('dashContent').style.display='block';
-
-  // KPIs
-  document.getElementById('kpi-total').textContent=n;
-  const todayStr=new Date().toDateString(),weekAgo=new Date(Date.now()-7*86400000);
-  const todayCnt=d.filter(r=>new Date(r.timestamp||'').toDateString()===todayStr).length;
-  const weekCnt=d.filter(r=>new Date(r.timestamp||'')>=weekAgo).length;
-  document.getElementById('kpi-today-badge').textContent='+'+todayCnt+' วันนี้';
-  document.getElementById('kpi-week').textContent='สัปดาห์นี้ +'+weekCnt+' ราย';
-  const provinces=new Set(d.map(r=>r.province).filter(Boolean));
-  const districts=new Set(d.map(r=>r.district).filter(Boolean));
-  const subs=new Set(d.map(r=>r.subdistrict).filter(Boolean));
-  document.getElementById('kpi-provinces').textContent=provinces.size;
-  document.getElementById('kpi-districts').textContent=districts.size+' อำเภอ · '+subs.size+' ตำบล';
-  const totalArea=d.reduce((s,r)=>s+parseFloat(r.area_rai||0),0);
-  const demoArea=d.reduce((s,r)=>s+parseFloat(r.demo_rai||0),0);
-  document.getElementById('kpi-area').textContent=totalArea.toFixed(0);
-  document.getElementById('kpi-demo').textContent='แปลงสาธิต '+demoArea.toFixed(0)+' ไร่';
-  const cmap={'น้อยกว่า 2,000 บาท':1000,'2,000–5,000 บาท':3500,'5,001–10,000 บาท':7500,'10,001–20,000 บาท':15000,'มากกว่า 20,000 บาท':25000};
-  const costs=d.map(r=>cmap[r.fertilizer_cost]||parseFloat(r.fertilizer_cost||0)||0).filter(v=>v>0);
-  const avgCost=costs.length?costs.reduce((a,b)=>a+b,0)/costs.length:0;
-  const saving=Math.round(avgCost*0.3*n);
-  document.getElementById('kpi-saving').textContent=saving>0?saving.toLocaleString():'—';
-
-  // Province bars
-  const provMap=countField(d,'province'),provTop=topN(provMap,8),maxProv=provTop[0]?.[1]||1;
-  const pc=['#1a6fa8','#2980b9','#5dade2','#7fb3d3','#a8cce5','#c8dff0','#d8e9f5','#eaf3fb'];
-  document.getElementById('prov-total-label').textContent=provinces.size+' จังหวัด';
-  document.getElementById('provinceBars').innerHTML=provTop.map((x,i)=>
-    '<div class="prov-row"><span class="prov-rank '+(i===0?'r1':i===1?'r2':i===2?'r3':'rn')+'">'+(i+1)+'</span>'+
-    '<span class="prov-name" title="'+x[0]+'">'+( x[0]||'ไม่ระบุ')+'</span>'+
-    '<div class="prov-bar-wrap"><div class="prov-bar" style="width:'+(x[1]/maxProv*100)+'%;background:'+pc[i]+'"></div></div>'+
-    '<span class="prov-count">'+x[1]+'</span></div>'
-  ).join('');
-  document.getElementById('top-province').textContent=provTop[0]?.[0]||'—';
-  const regMap={};d.forEach(r=>{const rg=guessRegion(r.province);regMap[rg]=(regMap[rg]||0)+1;});
-  const topReg=topN(regMap,1)[0];document.getElementById('top-region').textContent=topReg?topReg[0]:'—';
-  const distMap=countField(d,'district'),topDist=topN(distMap,1)[0];
-  document.getElementById('top-district').textContent=topDist?topDist[0]:'—';
-
+  var d=allData,n=d.length;
+  document.getElementById("dashContent").style.display="block";
+  document.getElementById("k-total").textContent=n;
+  var todayStr=new Date().toDateString(),weekAgo=new Date(Date.now()-7*86400000);
+  var tc=d.filter(function(r){return new Date(r.timestamp||"").toDateString()===todayStr;}).length;
+  var wc=d.filter(function(r){return new Date(r.timestamp||"")>=weekAgo;}).length;
+  document.getElementById("k-today").textContent="+"+tc+" วันนี้";
+  document.getElementById("k-week").textContent="สัปดาห์นี้ +"+wc+" ราย";
+  var provSet=new Set(d.map(function(r){return r.province;}).filter(Boolean));
+  var distSet=new Set(d.map(function(r){return r.district;}).filter(Boolean));
+  var subSet=new Set(d.map(function(r){return r.subdistrict;}).filter(Boolean));
+  document.getElementById("k-prov").textContent=provSet.size;
+  document.getElementById("k-dist").textContent=distSet.size+" อำเภอ · "+subSet.size+" ตำบล";
+  var ta=d.reduce(function(s,r){return s+parseFloat(r.area_rai||0);},0);
+  var da=d.reduce(function(s,r){return s+parseFloat(r.demo_rai||0);},0);
+  document.getElementById("k-area").textContent=ta.toFixed(0);
+  document.getElementById("k-demo").textContent="สาธิต "+da.toFixed(0)+" ไร่";
+  var cm=extractCropTypes(d),ct=topN(cm,3);
+  document.getElementById("k-crops").textContent=Object.keys(cm).length;
+  document.getElementById("k-topcrop").textContent="อันดับ 1: "+(ct[0]?ct[0][0]:"--");
+  var costMap={"น้อยกว่า 2,000 บาท":1000,"2,000–5,000 บาท":3500,"5,001–10,000 บาท":7500,"10,001–20,000 บาท":15000,"มากกว่า 20,000 บาท":25000};
+  var costs=d.map(function(r){return costMap[r.fertilizer_cost]||parseFloat(r.fertilizer_cost||0)||0;}).filter(function(v){return v>0;});
+  var avgCost=costs.length?costs.reduce(function(a,b){return a+b;},0)/costs.length:0;
+  var saving=Math.round(avgCost*0.3*n);
+  document.getElementById("k-saving").textContent=saving>0?saving.toLocaleString():"--";
+  var rc=d.filter(function(r){return(r.site_visit||"").includes("ยินดี")||(r.site_visit||"").includes("สะดวก");}).length;
+  document.getElementById("k-ready").textContent=n?Math.round(rc/n*100)+"%":"--";
+  document.getElementById("k-ready-sub").textContent=rc+" ราย";
+  // Province
+  var pm=countField(d,"province"),pt=topN(pm,8);
+  document.getElementById("prov-count").textContent=provSet.size+" จังหวัด";
+  makeBars("provBars",pt);
+  document.getElementById("top-prov").textContent=pt[0]?pt[0][0]:"--";
+  var rm={};d.forEach(function(r){var rg=guessRegion(r.province);rm[rg]=(rm[rg]||0)+1;});
+  var tr=topN(rm,1)[0];document.getElementById("top-region").textContent=tr?tr[0]:"--";
+  var dm=countField(d,"district"),td=topN(dm,1)[0];
+  document.getElementById("top-dist").textContent=td?td[0]:"--";
+  makeBars("distBars",topN(dm,8));
+  var sm=countField(d,"subdistrict");
+  makeBars("subDistBars",topN(sm,8),["#7c3aed","#8b5cf6","#a78bfa","#c4b5fd","#ddd6fe","#ede9fe","#f5f3ff","#faf5ff"]);
   // Timeline
-  const dateMap={};d.forEach(r=>{const dt=fmtDate(r.timestamp);if(dt!=='—')dateMap[dt]=(dateMap[dt]||0)+1;});
-  const sortedDates=Object.keys(dateMap).sort();
-  document.getElementById('timeline-range').textContent=sortedDates.length?sortedDates[0]+' — '+sortedDates[sortedDates.length-1]:'—';
-  destroyChart('timeline');
-  charts['timeline']=new Chart(document.getElementById('timelineChart'),{type:'line',data:{labels:sortedDates,datasets:[{data:sortedDates.map(d=>dateMap[d]),borderColor:'#2db56e',backgroundColor:'rgba(45,181,110,0.08)',borderWidth:2.5,fill:true,tension:0.4,pointRadius:5,pointBackgroundColor:'#2db56e',pointBorderColor:'#fff',pointBorderWidth:2}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:t=>t.raw+' ใบสมัคร'}}},scales:{x:{ticks:{font:{family:'Sarabun',size:11},color:'#8a9a88',maxRotation:45},grid:{display:false}},y:{ticks:{font:{family:'Sarabun',size:11},color:'#8a9a88'},beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}}}}});
-  const peakDay=sortedDates.reduce((best,d)=>dateMap[d]>=(dateMap[best]||0)?d:best,sortedDates[0]||'');
-  document.getElementById('peak-day').textContent=peakDay?(dateMap[peakDay]+' ราย'):'—';
-  document.getElementById('avg-per-day').textContent=sortedDates.length?(n/sortedDates.length).toFixed(1)+' ราย':'—';
-  document.getElementById('active-days').textContent=sortedDates.length+' วัน';
-
+  var dateMap={};d.forEach(function(r){var dt=fmtDate(r.timestamp);if(dt!="--")dateMap[dt]=(dateMap[dt]||0)+1;});
+  var sd=Object.keys(dateMap).sort();
+  document.getElementById("timeline-range").textContent=sd.length?sd[0]+" -- "+sd[sd.length-1]:"--";
+  destroyChart("timeline");
+  charts["timeline"]=new Chart(document.getElementById("timelineChart"),{type:"line",data:{labels:sd,datasets:[{data:sd.map(function(d){return dateMap[d];}),borderColor:"#2db56e",backgroundColor:"rgba(45,181,110,0.08)",borderWidth:2.5,fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:"#2db56e",pointBorderColor:"#fff",pointBorderWidth:2}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:"Sarabun",size:11},color:"#8a9a88",maxRotation:45},grid:{display:false}},y:{ticks:{font:{family:"Sarabun",size:11},color:"#8a9a88"},beginAtZero:true,grid:{color:"rgba(0,0,0,0.04)"}}}}});
+  var pk=sd.reduce(function(b,d){return dateMap[d]>=(dateMap[b]||0)?d:b;},sd[0]||"");
+  document.getElementById("peak-day").textContent=pk?(dateMap[pk]+" ราย"):"--";
+  document.getElementById("avg-day").textContent=sd.length?(n/sd.length).toFixed(1)+" ราย":"--";
+  document.getElementById("active-days").textContent=sd.length+" วัน";
   // Crop
-  const cropMap=countField(d,'crop_type'),cropTop=topN(cropMap,7);
-  const cropColors=['#2db56e','#e8a23a','#1a6fa8','#8e44ad','#c0392b','#16a085','#d35400'];
-  document.getElementById('crop-types-count').textContent=Object.keys(cropMap).length+' ประเภท';
-  destroyChart('crop');
-  charts['crop']=new Chart(document.getElementById('cropChart'),{type:'doughnut',data:{labels:cropTop.map(x=>x[0]),datasets:[{data:cropTop.map(x=>x[1]),backgroundColor:cropColors,borderWidth:3,borderColor:'#fff',hoverOffset:6}]},options:{responsive:true,cutout:'62%',plugins:{legend:{display:false}}}});
-  document.getElementById('cropLegend').innerHTML=cropTop.map((x,i)=>
-    '<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">'+
-    '<span style="width:10px;height:10px;border-radius:50%;background:'+cropColors[i]+';flex-shrink:0"></span>'+
-    '<span style="font-size:12px;color:var(--txt2);flex:1">'+x[0]+'</span>'+
-    '<span style="font-size:12px;font-weight:600;color:var(--txt1)">'+x[1]+'</span></div>'
-  ).join('');
-  const ct=topN(cropMap,3);
-  document.getElementById('top-crop-1').textContent=ct[0]?.[0]||'—';
-  document.getElementById('top-crop-2').textContent=ct[1]?.[0]||'—';
-  document.getElementById('top-crop-3').textContent=ct[2]?.[0]||'—';
-
-  // Harvest months
-  const months=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  const hmMap=countField(d,'harvest_month'),hmData=months.map(m=>hmMap[m]||0);
-  destroyChart('harvest');
-  charts['harvest']=new Chart(document.getElementById('harvestChart'),{type:'bar',data:{labels:months,datasets:[{data:hmData,backgroundColor:months.map((_,i)=>i>=3&&i<=8?'rgba(232,162,58,0.85)':'rgba(45,181,110,0.75)'),borderRadius:6,borderSkipped:false,borderColor:months.map((_,i)=>i>=3&&i<=8?'#e8a23a':'#2db56e'),borderWidth:1.5}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:t=>t.raw+' แปลง'}}},scales:{x:{ticks:{font:{family:'Sarabun',size:11},color:'#8a9a88'},grid:{display:false}},y:{ticks:{font:{family:'Sarabun',size:11},color:'#8a9a88'},beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}}}}});
-  const peakMIdx=hmData.indexOf(Math.max(...hmData));
-  document.getElementById('peak-month').textContent=hmData[peakMIdx]>0?months[peakMIdx]:'—';
-  const dry=hmData.slice(3,9).reduce((a,b)=>a+b,0),rain=hmData.slice(0,3).concat(hmData.slice(9)).reduce((a,b)=>a+b,0);
-  document.getElementById('peak-season').textContent=dry>=rain?'มี.ค.–ส.ค.':'ต.ค.–ก.พ.';
-  document.getElementById('harvest-spread').textContent=hmData.filter(v=>v>0).length+' เดือน';
+  var cc=["#2db56e","#e8a23a","#1a6fa8","#8e44ad","#c0392b","#16a085","#d35400","#2c3e50"];
+  var cta=topN(cm,7);
+  document.getElementById("crop-count").textContent=Object.keys(cm).length+" ประเภท";
+  destroyChart("crop");
+  charts["crop"]=new Chart(document.getElementById("cropChart"),{type:"doughnut",data:{labels:cta.map(function(x){return x[0];}),datasets:[{data:cta.map(function(x){return x[1];}),backgroundColor:cc,borderWidth:3,borderColor:"#fff",hoverOffset:6}]},options:{responsive:true,cutout:"62%",plugins:{legend:{display:false}}}});
+  document.getElementById("cropLegend").innerHTML=cta.map(function(x,i){return "<div style='display:flex;align-items:center;gap:7px;margin-bottom:7px'><span style='width:10px;height:10px;border-radius:50%;background:"+cc[i]+";flex-shrink:0'></span><span style='font-size:12px;color:var(--txt2);flex:1'>"+x[0]+"</span><span style='font-size:12px;font-weight:600'>"+x[1]+"</span></div>";}).join("");
+  document.getElementById("crop1").textContent=cta[0]?cta[0][0]:"--";
+  document.getElementById("crop2").textContent=cta[1]?cta[1][0]:"--";
+  document.getElementById("crop3").textContent=cta[2]?cta[2][0]:"--";
+  // Harvest
+  var months=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  var hm=countField(d,"harvest_month"),hd=months.map(function(m){return hm[m]||0;});
+  destroyChart("harvest");
+  charts["harvest"]=new Chart(document.getElementById("harvestChart"),{type:"bar",data:{labels:months,datasets:[{data:hd,backgroundColor:months.map(function(_,i){return i>=3&&i<=8?"rgba(232,162,58,0.85)":"rgba(45,181,110,0.75)";}),borderRadius:6,borderSkipped:false,borderColor:months.map(function(_,i){return i>=3&&i<=8?"#e8a23a":"#2db56e";}),borderWidth:1.5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:"Sarabun",size:11},color:"#8a9a88"},grid:{display:false}},y:{ticks:{font:{family:"Sarabun",size:11},color:"#8a9a88"},beginAtZero:true}}}});
+  var pmi=hd.indexOf(Math.max.apply(null,hd));
+  document.getElementById("peak-month").textContent=hd[pmi]>0?months[pmi]:"--";
+  var dry=hd.slice(3,9).reduce(function(a,b){return a+b;},0),rain=hd.slice(0,3).concat(hd.slice(9)).reduce(function(a,b){return a+b;},0);
+  document.getElementById("peak-season").textContent=dry>=rain?"มี.ค.–ส.ค.":"ต.ค.–ก.พ.";
+  document.getElementById("harvest-spread").textContent=hd.filter(function(v){return v>0;}).length+" เดือน";
+  // Donut helper
+  function mkD(id,map,colors){destroyChart(id);var top=topN(map,5);charts[id]=new Chart(document.getElementById(id),{type:"doughnut",data:{labels:top.map(function(x){return x[0]||"ไม่ระบุ";}),datasets:[{data:top.map(function(x){return x[1];}),backgroundColor:colors||["#2db56e","#e8a23a","#c0392b","#1a6fa8","#8e44ad"],borderWidth:2,borderColor:"#fff"}]},options:{responsive:true,cutout:"55%",plugins:{legend:{position:"bottom",labels:{font:{family:"Sarabun",size:10},boxWidth:10,padding:6}}}}});}
+  mkD("availChart",countField(d,"availability"),["#2db56e","#e8a23a","#c0392b"]);
+  mkD("siteChart",countField(d,"site_visit"),["#2db56e","#e8a23a","#c0392b"]);
+  mkD("photoChart",countField(d,"photo_report"),["#2db56e","#e8a23a","#c0392b"]);
+  // Area
+  var ab={"น้อยกว่า 5 ไร่":0,"5-20 ไร่":0,"21-50 ไร่":0,"51-100 ไร่":0,"มากกว่า 100 ไร่":0};
+  d.forEach(function(r){var a=parseFloat(r.area_rai||0);if(a<5)ab["น้อยกว่า 5 ไร่"]++;else if(a<=20)ab["5-20 ไร่"]++;else if(a<=50)ab["21-50 ไร่"]++;else if(a<=100)ab["51-100 ไร่"]++;else ab["มากกว่า 100 ไร่"]++;});
+  destroyChart("area");
+  charts["area"]=new Chart(document.getElementById("areaChart"),{type:"bar",data:{labels:Object.keys(ab),datasets:[{data:Object.values(ab),backgroundColor:["#d4f0e2","#a8d8c0","#2db56e","#1a7a4a","#0a4a2e"],borderRadius:6,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:"Sarabun",size:11}},grid:{display:false}},y:{ticks:{font:{family:"Sarabun",size:11}},beginAtZero:true}}}});
+  document.getElementById("area-total").textContent=ta.toFixed(0)+" ไร่";
+  document.getElementById("area-demo").textContent=da.toFixed(0)+" ไร่";
+  document.getElementById("area-avg").textContent=n?(ta/n).toFixed(1):"--";
+  makeBars("waterBars",topN(countField(d,"water_source"),5),["#1a6fa8","#2980b9","#5dade2","#7fb3d3","#a8cce5"]);
+  makeBars("irrigBars",topN(countField(d,"watering_method"),5),["#e8a23a","#f0b429","#f8cc6a","#fde09b","#fef3c7"]);
+  // Cost
+  var ck=["น้อยกว่า 2,000 บาท","2,000–5,000 บาท","5,001–10,000 บาท","10,001–20,000 บาท","มากกว่า 20,000 บาท"];
+  var cv=ck.map(function(k){return d.filter(function(r){return r.fertilizer_cost===k;}).length;});
+  destroyChart("cost");
+  charts["cost"]=new Chart(document.getElementById("costChart"),{type:"bar",data:{labels:["<2K","2-5K","5-10K","10-20K",">20K"],datasets:[{data:cv,backgroundColor:["#d4f0e2","#a8d8c0","#2db56e","#1a7a4a","#0a4a2e"],borderRadius:6,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:"Sarabun",size:11}},grid:{display:false}},y:{ticks:{font:{family:"Sarabun",size:11}},beginAtZero:true}}}});
+  document.getElementById("cost-avg").textContent=avgCost>0?Math.round(avgCost).toLocaleString():"--";
+  document.getElementById("cost-save-per").textContent=avgCost>0?Math.round(avgCost*0.3).toLocaleString()+" บาท":"--";
+  document.getElementById("cost-save-total").textContent=saving>0?saving.toLocaleString()+" บาท":"--";
+  // Organic
+  destroyChart("organic");
+  var ot=topN(countField(d,"organic_exp"),5);
+  charts["organic"]=new Chart(document.getElementById("organicChart"),{type:"bar",data:{labels:ot.map(function(x){return x[0]||"ไม่ระบุ";}),datasets:[{data:ot.map(function(x){return x[1];}),backgroundColor:["#0a4a2e","#1a7a4a","#2db56e","#a8d8c0","#d4f0e2"],borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:"Sarabun",size:11}},beginAtZero:true,grid:{display:false}},y:{ticks:{font:{family:"Sarabun",size:10}}}}}});
+  var ro=d.filter(function(r){return(r.organic_exp||"").includes("อินทรีย์เป็นหลัก");}).length;
+  var mo=d.filter(function(r){return(r.organic_exp||"").includes("ร่วมกับเคมี");}).length;
+  var no=d.filter(function(r){return(r.organic_exp||"").includes("ไม่เคย");}).length;
+  document.getElementById("organic-ready").textContent=n?Math.round(ro/n*100)+"%":"--";
+  document.getElementById("organic-mixed").textContent=n?Math.round(mo/n*100)+"%":"--";
+  document.getElementById("organic-new").textContent=n?Math.round(no/n*100)+"%":"--";
 }
-
-window.addEventListener('load',()=>{loadData();});
+window.addEventListener("load",function(){loadData();});
 </script>
 </body>
 </html>
