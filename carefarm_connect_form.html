@@ -616,6 +616,21 @@
 
 
   /* ── Crop Rows ── */
+  .add-crop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: 1.5px dashed var(--green-mid);
+    border-radius: 50px;
+    background: var(--green-pale);
+    color: var(--green-deep);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .add-crop-btn:hover { background: var(--green-light); }
   .crop-row {
     background: var(--green-pale);
     border: 1px solid var(--green-light);
@@ -1382,7 +1397,7 @@
 
         <!-- ปุ่มเพิ่มพืช -->
         <div style="text-align:center;margin-top:1rem">
-          <button type="button" id="addCropBtn" onclick="addCropRow()" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1.5px dashed var(--green-mid);border-radius:50px;background:var(--green-pale);color:var(--green-deep);font-family:'Sarabun',sans-serif;font-size:14px;font-weight:600;cursor:pointer">
+          <button type="button" id="addCropBtn" onclick="addCropRow()" class="add-crop-btn">
             + เพิ่มพืชชนิดอื่น (สูงสุด 5 ชนิด)
           </button>
         </div>
@@ -1579,12 +1594,12 @@
           บริษัท RBS จะจัดเก็บและประมวลผลข้อมูลส่วนบุคคลของท่านเพื่อโครงการ CareFarm Connect เท่านั้น และจะไม่เปิดเผยต่อบุคคลภายนอก ท่านมีสิทธิ์เพิกถอนได้ตลอดเวลาโดยติดต่อฝ่าย HR โทร 02-553-0077 ต่อ 300
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
-          <button type="button" id="pdpa-agree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:'Sarabun',sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('agree')">
+          <button type="button" id="pdpa-agree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:Sarabun,sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('agree')">
             <span id="pdpa-agree-circle" style="width:24px;height:24px;border-radius:50%;border:2px solid #d8e8d4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;background:#fff"></span>
             <span style="font-size:14px;font-weight:500;color:#0a4a2e">✓ ยินยอม ให้บริษัทจัดเก็บและประมวลผลข้อมูลส่วนบุคคลตามวัตถุประสงค์ข้างต้น</span>
             <input type="radio" name="pdpa_consent" id="pdpa_agree" value="ยินยอม" style="display:none">
           </button>
-          <button type="button" id="pdpa-disagree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:'Sarabun',sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('disagree')">
+          <button type="button" id="pdpa-disagree-label" style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #d8e8d4;border-radius:12px;cursor:pointer;background:#faf8f3;font-family:Sarabun,sans-serif;text-align:left;position:relative;z-index:20" onclick="selectPdpa('disagree')">
             <span id="pdpa-disagree-circle" style="width:24px;height:24px;border-radius:50%;border:2px solid #d8e8d4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;background:#fff"></span>
             <span style="font-size:14px;font-weight:500;color:#9b2335">✗ ไม่ยินยอม (กรุณาติดต่อ HR ก่อนสมัคร)</span>
             <input type="radio" name="pdpa_consent" id="pdpa_disagree" value="ไม่ยินยอม" style="display:none">
